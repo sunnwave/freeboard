@@ -6,9 +6,10 @@ import {
   FETCH_BOARD_COMMENTS,
   FETCH_BOARD,
 } from "./CommentWrite.queries";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { ICommentWriteProps } from "./CommentWrite.types";
 
-export default function CommentWrite(props) {
+export default function CommentWrite(props: ICommentWriteProps) {
   const router = useRouter();
 
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
@@ -19,19 +20,19 @@ export default function CommentWrite(props) {
   const [contents, setContents] = useState("");
   const [contentsCount, setContentsCount] = useState(0);
 
-  function onChangeWriter(event) {
+  function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
   }
 
-  function onChangePassword(event) {
+  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
   }
 
-  function onChangeRating(event) {
-    setRating(event.target.value);
-  }
+  // function onChangeRating(event:ChangeEvent<HTMLSelectElement>) {
+  //   setRating(event.target.value);
+  // }
 
-  function onChangeContents(event) {
+  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value);
     setContentsCount(event.target.value.length);
   }
@@ -76,7 +77,7 @@ export default function CommentWrite(props) {
       isUpdate={props.isUpdate}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
-      onChangeRating={onChangeRating}
+      // onChangeRating={onChangeRating}
       onChangeContents={onChangeContents}
       onClickRegister={onClickRegister}
       contentsCount={contentsCount}

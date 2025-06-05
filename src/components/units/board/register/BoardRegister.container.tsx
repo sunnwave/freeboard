@@ -1,10 +1,14 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import BoardRegisterUI from "./BoardRegister.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardRegister.queries";
+import {
+  IBoardRegisterProps,
+  ImyUpdateBoardInput,
+} from "./BoardRegister.types";
 
-export default function BoardRegister(props) {
+export default function BoardRegister(props: IBoardRegisterProps) {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -22,7 +26,7 @@ export default function BoardRegister(props) {
 
   const router = useRouter();
 
-  function onChangeWriter(event) {
+  function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
     if (event.target.value !== "") {
       setWriterError("");
@@ -33,7 +37,7 @@ export default function BoardRegister(props) {
       setButtonColor("#EFEFEF");
     }
   }
-  function onChangePassword(event) {
+  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
     if (event.target.value !== "") {
       setPasswordError("");
@@ -44,7 +48,7 @@ export default function BoardRegister(props) {
       setButtonColor("#EFEFEF");
     }
   }
-  function onChangeTitle(event) {
+  function onChangeTitle(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
     if (event.target.value !== "") {
       setTitleError("");
@@ -55,7 +59,7 @@ export default function BoardRegister(props) {
       setButtonColor("#EFEFEF");
     }
   }
-  function onChangeContents(event) {
+  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value);
     if (event.target.value !== "") {
       setContentsError("");
@@ -66,20 +70,20 @@ export default function BoardRegister(props) {
       setButtonColor("#EFEFEF");
     }
   }
-  function onChangeZipcode(event) {
-    setZipcode(event.target.value);
-  }
-  function onChangeAddress(event) {
-    setAddress(event.target.value);
-  }
-  function onChangeAddressDetail(event) {
-    setAddressDetail(event.target.value);
-  }
-  function onChangeYoutube(event) {
-    setYoutube(event.target.value);
-  }
+  // function onChangeZipcode(event: ChangeEvent<HTMLInputElement>) {
+  //   setZipcode(event.target.value);
+  // }
+  // function onChangeAddress(event: ChangeEvent<HTMLInputElement>) {
+  //   setAddress(event.target.value);
+  // }
+  // function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
+  //   setAddressDetail(event.target.value);
+  // }
+  // function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
+  //   setYoutube(event.target.value);
+  // }
 
-  const onClickRegister = async (event) => {
+  const onClickRegister = async () => {
     if (!writer) {
       setWriterError("작성자를 입력하지 않았습니다. 작성자를 입력해주세요");
     }
@@ -96,7 +100,6 @@ export default function BoardRegister(props) {
     }
 
     if (writer && password && title && contents) {
-      event.target;
       try {
         const result = await createBoard({
           variables: {
@@ -111,14 +114,16 @@ export default function BoardRegister(props) {
         alert("게시글이 등록되었습니다.");
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
-        console.error(error);
-        alert(error.message);
+        if (error instanceof Error) {
+          console.error(error);
+          alert(error.message);
+        }
       }
     }
   };
 
   const onClickUpdate = async () => {
-    const myUpdateBoardInput = {};
+    const myUpdateBoardInput: ImyUpdateBoardInput = {};
 
     if (!title && !contents) {
       alert("수정된 내용이 없습니다.");
@@ -144,8 +149,10 @@ export default function BoardRegister(props) {
       alert("게시물이 수정되었습니다");
       router.push(`/boards/${router.query.boardId}`);
     } catch (err) {
-      console.error(err);
-      alert(err.message);
+      if (err instanceof Error) {
+        console.error(err);
+        alert(err.message);
+      }
     }
   };
 
@@ -162,10 +169,10 @@ export default function BoardRegister(props) {
         titleError={titleError}
         onChangeContents={onChangeContents}
         contentsError={contentsError}
-        onChangeZipcode={onChangeZipcode}
-        onChangeAddress={onChangeAddress}
-        onChangeAddressDetail={onChangeAddressDetail}
-        onChangeYoutube={onChangeYoutube}
+        // onChangeZipcode={onChangeZipcode}
+        // onChangeAddress={onChangeAddress}
+        // onChangeAddressDetail={onChangeAddressDetail}
+        // onChangeYoutube={onChangeYoutube}
         onClickRegister={onClickRegister}
         onClickUpdate={onClickUpdate}
         buttonColor={buttonColor}

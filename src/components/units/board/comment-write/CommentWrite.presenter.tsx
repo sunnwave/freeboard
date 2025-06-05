@@ -1,7 +1,8 @@
 import * as W from "./CommentWrite.styles";
 import { VscStarFull } from "react-icons/vsc";
+import { ICommentWriteUIProps } from "./CommentWrite.types";
 
-export default function CommentWriteUI(props) {
+export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
     <W.CommentWriteWrapper>
       <W.CommentInfoWrapper>

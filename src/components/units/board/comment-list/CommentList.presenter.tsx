@@ -1,8 +1,9 @@
-import * as C from "./CommentRead.styles";
+import * as C from "./CommentList.styles";
 import { VscStarFull } from "react-icons/vsc";
 import moment from "moment";
+import { ICommentListProps } from "./CommentList.types";
 
-export default function CommentReadUI(props) {
+export default function CommentListUI(props: ICommentListProps) {
   return (
     <div>
       {props.data?.fetchBoardComments.map((el) => (

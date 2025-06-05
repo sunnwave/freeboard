@@ -26,10 +26,11 @@ import {
   CommentLabel,
 } from "./BoardDetail.styles";
 import moment from "moment";
-import CommentWrite from "../commentwrite/CommentWrite.container";
-import CommentRead from "../commentread/CommentRead.container";
+import CommentWrite from "../comment-write/CommentWrite.container";
+import CommentRead from "../comment-list/CommentList.container";
+import { IBoardDetailProps } from "./BoardDetail.types";
 
-export default function BoardDetailUI(props) {
+export default function BoardDetailUI(props: IBoardDetailProps) {
   return (
     <>
       <Wrapper>

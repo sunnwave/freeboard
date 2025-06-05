@@ -16,8 +16,9 @@ import {
   RegisterLabel,
 } from "./BoardList.styles";
 import moment from "moment";
+import { IBoardListUIProps } from "./BoardList.types";
 
-export default function BoardListUI(props) {
+export default function BoardListUI(props: IBoardListUIProps) {
   return (
     <>
       <Body>
