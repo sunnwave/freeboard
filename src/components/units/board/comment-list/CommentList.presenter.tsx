@@ -5,7 +5,7 @@ import { ICommentListProps } from "./CommentList.types";
 
 export default function CommentListUI(props: ICommentListProps) {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       {props.data?.fetchBoardComments.map((el) => (
         <C.CommentWrappper key={el._id}>
           <C.ProfileWrapper>

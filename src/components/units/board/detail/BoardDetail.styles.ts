@@ -1,16 +1,15 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
+  width: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
-  width: 1920px;
-  padding: 200px 360px;
+  align-items: center;
+  margin: 200px 360px;
 `;
 
 export const BoardWrapper = styled.div`
-  margin-top: 50px;
   margin-bottom: 101px;
   padding: 80px 102px 80px 102px;
   width: 1200px;
@@ -144,12 +143,11 @@ export const Count = styled.div`
 `;
 export const BottomNavWrapper = styled.div`
   display: flex;
-  width: 1200px;
+  width: 100%;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding-left: 316px;
-  padding-right: 299px;
+  justify-content: center;
+  gap: 24px;
 `;
 export const NavButton = styled.button`
   width: Hug (179px) px;
@@ -157,7 +155,6 @@ export const NavButton = styled.button`
   top: 2378px;
   left: 677px;
   padding: 14px 60px 14px 60px;
-  gap: 8px;
   border: 1px solid #bdbdbd;
   background: #ffffff;
   font-family: Noto Sans CJK KR;
@@ -178,6 +175,7 @@ export const Hr = styled.hr`
 `;
 
 export const CommentTitleWrapper = styled.div`
+  width: 100%;
   margin-top: 40px;
   display: flex;
   flex-direction: row;

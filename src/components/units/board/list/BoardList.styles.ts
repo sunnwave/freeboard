@@ -15,7 +15,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  padding: 0 20px;
 `;
 export const SearchWrapper = styled.div`
   display: flex;
@@ -25,13 +24,12 @@ export const SearchWrapper = styled.div`
   height: 52px;
   align-items: center;
   width: 100%;
-  /* padding: 0 20px; */
 `;
 
 export const SearchTitleWrapper = styled.div`
   width: 776px;
-  /* height: 100%; */
-  /* height: 52px; */
+  height: 100%;
+  height: 52px;
   border-radius: 10px;
   border: none;
   background: #f2f2f2;
@@ -92,7 +90,7 @@ export const SearchButton = styled.button`
 `;
 
 export const Table = styled.table`
-  width: 1200px;
+  width: 100%;
   margin-bottom: 40px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;

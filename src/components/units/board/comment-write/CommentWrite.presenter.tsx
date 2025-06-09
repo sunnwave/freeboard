@@ -6,8 +6,9 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
     <W.CommentWriteWrapper>
       <W.CommentInfoWrapper>
-        <W.WriterInput placeholder="작성자" onChange={props.onChangeWriter} />
-        <W.PasswordInput
+        <W.InfoInput placeholder="작성자" onChange={props.onChangeWriter} />
+        <W.InfoInput
+          type="password"
           placeholder="비밀번호"
           onChange={props.onChangePassword}
         />

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const CommentWrappper = styled.div`
-  width: 1200.5px;
+  width: 100%;
   height: 111px;
   border-bottom: 1px solid #bdbdbd;
   display: flex;

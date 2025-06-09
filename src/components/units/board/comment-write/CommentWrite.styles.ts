@@ -2,15 +2,17 @@ import styled from "@emotion/styled";
 
 export const CommentWriteWrapper = styled.div`
   margin-bottom: 20px;
+  width: 100%;
 `;
 
 export const CommentInfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 `;
 
-export const WriterInput = styled.input`
+export const InfoInput = styled.input`
   width: 180px;
   height: 52px;
   border: 1px solid #bdbdbd;
@@ -20,22 +22,7 @@ export const WriterInput = styled.input`
   font-family: Noto Sans CJK KR;
   font-size: 16px;
   font-weight: 500;
-  line-height: 23.68px;
   text-align: left;
-`;
-
-export const PasswordInput = styled.input`
-  width: 180px;
-  height: 52px;
-  border: 1px solid #bdbdbd;
-  margin-right: 24px;
-  color: #828282;
-  font-family: Noto Sans CJK KR;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 23.68px;
-  text-align: left;
-  padding: 14px 20px;
 `;
 
 export const StarWrapper = styled.div`
