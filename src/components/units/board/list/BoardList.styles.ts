@@ -1,23 +1,37 @@
 import styled from "@emotion/styled";
 
 export const Body = styled.div`
-  width: 1920px;
+  /* width: 1920px; */
   padding-top: 50px;
   padding-left: 360px;
   padding-right: 360px;
   display: flex;
   flex-direction: column;
 `;
+
+export const Wrapper = styled.div`
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+`;
 export const SearchWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 40px;
+  height: 52px;
+  align-items: center;
+  width: 100%;
+  /* padding: 0 20px; */
 `;
 
 export const SearchTitleWrapper = styled.div`
   width: 776px;
-  height: 52px;
+  /* height: 100%; */
+  /* height: 52px; */
   border-radius: 10px;
   border: none;
   background: #f2f2f2;
@@ -35,8 +49,10 @@ export const SearchTitle = styled.input`
   font-family: Noto Sans CJK KR;
   font-size: 16px;
   font-weight: 400;
-  line-height: 23.68px;
+  /* line-height: 23.68px; */
+  height: 24px;
   text-align: left;
+  width: 100%;
 `;
 export const SearchIcon = styled.img`
   margin-right: 8px;
@@ -48,6 +64,9 @@ export const SearchDateWrapper = styled.div`
   gap: 8px;
   border: 1px solid #bdbdbd;
   margin-right: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 export const DateInput = styled.input`
   width: 93px;
@@ -63,8 +82,8 @@ export const DateInput = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  width: Hug (94px) px;
-  height: Hug (52px) px;
+  width: 94px;
+  height: 52px;
   padding: 14px 16px 14px 16px;
   gap: 10px;
   border-radius: 10px;
