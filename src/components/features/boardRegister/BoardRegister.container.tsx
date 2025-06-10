@@ -13,6 +13,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  // const [zipcode, setZipcode] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [addressDetail, setAddressDetail] = useState("");
+  // const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [buttonColor, setButtonColor] = useState("#EFEFEF");
 
@@ -80,7 +84,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   //   setAddressDetail(event.target.value);
   // }
   // function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
-  //   setYoutube(event.target.value);
+  //   setYoutubeUrl(event.target.value);
   // }
 
   const onClickRegister = async () => {
@@ -108,6 +112,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
               password,
               title,
               contents,
+              // zipcode,
+              // address,
+              // addressDetail,
+              // youtubeUrl,
             },
           },
         });
@@ -125,7 +133,14 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const onClickUpdate = async () => {
     const myUpdateBoardInput: ImyUpdateBoardInput = {};
 
-    if (!title && !contents) {
+    if (
+      !title &&
+      !contents
+      // &&!zipcode
+      // &&!address
+      // &&!addressDetail
+      // &&!youtubeUrl
+    ) {
       alert("수정된 내용이 없습니다.");
       return;
     }
@@ -137,18 +152,28 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
     if (title) myUpdateBoardInput.title = title;
     if (contents) myUpdateBoardInput.contents = contents;
+    // if (zipcode) myUpdateBoardInput.zipcode = zipcode;
+    // if (address) myUpdateBoardInput.address = address;
+    // if (addressDetail) myUpdateBoardInput.addressDetail = addressDetail;
+    // if (youtubeUrl) myUpdateBoardInput.youtube = youtubeUrl;
 
     try {
+      //TIL : router.query.boardId의 타입을 확인 router.query.boardId가 string일 때만 작동될 수 있도록 함
+      if (typeof router.query.boardId !== "string") {
+        alert("시스템에 문제가 있습니다. 잠시 후 다시 시도해주세요.");
+        return;
+      }
       const result = await updateBoard({
         variables: {
           password,
-          boardId: router.query.boardId,
+          boardId: router.query.boardId, //TIL: boardId는 string 타입이므로, router.query.boardId가 string일 때만 작동됨
           updateBoardInput: myUpdateBoardInput,
         },
       });
       alert("게시물이 수정되었습니다");
       router.push(`/boards/${router.query.boardId}`);
     } catch (err) {
+      //TIL: instanceof( 자식요소인지 판별)
       if (err instanceof Error) {
         console.error(err);
         alert(err.message);

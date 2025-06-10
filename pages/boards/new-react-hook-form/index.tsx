@@ -23,7 +23,7 @@ import {
   RegisterButton,
   Error,
   RegisterForm,
-} from "../../../src/components/units/board/register/BoardRegister.styles";
+} from "../../../src/components/features/boardRegister/BoardRegister.styles";
 
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";

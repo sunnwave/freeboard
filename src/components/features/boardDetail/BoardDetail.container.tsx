@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
-import BoardDetailUI from "./BoardDetail.presenter";
 import { DELETE_BOARD, FETCH_BOARD } from "./BoardDetail.queries";
 import {
   IMutation,
   IMutationDeleteBoardArgs,
   IQuery,
   IQueryFetchBoardArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../commons/types/generated/types";
+import BoardDetailUI from "./BoardDetail.presenter";
 
 export default function BoardDetail() {
   const router = useRouter();

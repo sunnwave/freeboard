@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
-import BoardListUI from "./BoardList.presenter";
 import { FETCH_BOARDS } from "./BoardList.queries";
 import { useRouter } from "next/router";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../commons/types/generated/types";
 import { MouseEvent } from "react";
+import BoardListUI from "./BoardList.presenter";
 
 export default function BoardList() {
   const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(
@@ -16,7 +16,7 @@ export default function BoardList() {
   const router = useRouter();
 
   const onClickBoardToDetail = (event: MouseEvent<HTMLTableCellElement>) => {
-    //TODO: if (event.target instanceof HTMLImageElement) 가 왜 필요한지?
+    //TIL: event.target이 항상 태그를 의미하진 않으므로 태그인 경우를 확인할 필요가 있음
     if (event.target instanceof HTMLTableCellElement) {
       router.push(`/boards/${event.target.id}`);
     }

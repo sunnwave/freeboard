@@ -1,4 +1,5 @@
-import { IQuery } from "../../../../commons/types/generated/types";
+import { ChangeEvent } from "react";
+import { IQuery } from "../../../commons/types/generated/types";
 
 export interface IBoardRegisterProps {
   data?: Pick<IQuery, "fetchBoard">;
@@ -8,6 +9,10 @@ export interface IBoardRegisterProps {
 export interface ImyUpdateBoardInput {
   title?: string;
   contents?: string;
+  zipcode?: string;
+  address?: string;
+  addressDetail?: string;
+  youtube?: string;
 }
 
 export interface IBoardRegisterUIProps {
@@ -21,10 +26,10 @@ export interface IBoardRegisterUIProps {
   titleError: string;
   onChangeContents: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   contentsError: string;
-  // onChangeZipcode: () => void;
-  // onChangeAddress: (address: string) => void;
-  // onChangeAddressDetail: (addressDetail: string) => void;
-  // onChangeYoutube: (url: string) => void;
+  // onChangeZipcode: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickRegister: () => Promise<void>;
   onClickUpdate: () => Promise<void>;
   buttonColor?: string;

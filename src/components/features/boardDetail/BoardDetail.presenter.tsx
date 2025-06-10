@@ -26,9 +26,9 @@ import {
   CommentLabel,
 } from "./BoardDetail.styles";
 import moment from "moment";
-import CommentWrite from "../comment-write/CommentWrite.container";
-import CommentRead from "../comment-list/CommentList.container";
 import { IBoardDetailProps } from "./BoardDetail.types";
+import CommentWrite from "../commentWrite/CommentWrite.container";
+import CommentList from "../commentList/CommentList.container";
 
 export default function BoardDetailUI(props: IBoardDetailProps) {
   return (
@@ -84,7 +84,7 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
         <CommentLabel>댓글</CommentLabel>
       </CommentTitleWrapper>
       <CommentWrite isUpdate={false} />
-      <CommentRead />
+      <CommentList />
     </Wrapper>
   );
 }

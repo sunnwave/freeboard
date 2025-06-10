@@ -38,8 +38,11 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
               type="text"
               placeholder="이름을 적어주세요."
               onChange={props.onChangeWriter}
-              defaultValue={props?.data?.fetchBoard.writer}
-              disabled={props.data?.fetchBoard.writer}
+              //TIL: undefined 또는 null일 때는 빈 문자열로 설정
+              defaultValue={props?.data?.fetchBoard.writer ?? ""}
+              // disabled={Boolean(props.data?.fetchBoard.writer)}
+              //TIL: 작성자가 있는 경우에는 수정할 수 없도록 disabled 속성 설정 !!으로 명시적으로 false로 변환
+              disabled={!!props.data?.fetchBoard.writer}
             />
             <Error>{props.writerError}</Error>
           </InputWrapper>
@@ -75,17 +78,19 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <InputWrapper>
           <Label>주소</Label>
           <ZipcodeWrapper>
-            <Zipcode placeholder="07250" onChange={props.onChangeZipcode} />
+            <Zipcode
+              placeholder="07250" /*onChange={props.onChangeZipcode} */
+            />
             <SearchButton>우편번호 검색</SearchButton>
           </ZipcodeWrapper>
-          <Address onChange={props.onChangeAddress} />
-          <Address onChange={props.onChangeAddressDetail} />
+          <Address /* onChange={props.onChangeAddress} */ />
+          <Address /* onChange={props.onChangeAddressDetail} */ />
         </InputWrapper>
         <InputWrapper>
           <Label>유튜브</Label>
           <Youtube
             placeholder="링크를 복사해주세요."
-            onChange={props.onChangeYoutube}
+            // onChange={props.onChangeYoutube}
           />
         </InputWrapper>
         <ImageWrapper>
