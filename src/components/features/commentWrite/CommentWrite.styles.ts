@@ -88,3 +88,25 @@ export const CommentRegisterButton = styled.button`
   color: white;
   border: none;
 `;
+
+export const CommentTitleWrapper = styled.div`
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 40px;
+`;
+export const CommentIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+`;
+export const CommentLabel = styled.label`
+  font-family: Noto Sans CJK KR;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26.64px;
+  text-align: left;
+`;

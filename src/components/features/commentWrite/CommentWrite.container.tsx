@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   CREATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
-  FETCH_BOARD,
 } from "./CommentWrite.queries";
 import { ChangeEvent, useState } from "react";
 import { ICommentWriteProps } from "./CommentWrite.types";
@@ -38,9 +37,14 @@ export default function CommentWrite(props: ICommentWriteProps) {
   }
 
   const onClickRegister = async () => {
-    console.log("clicked");
-    // if (!contents) {
-    // }
+    if (!contents) {
+      alert("댓글을 작성해주세요.");
+      return;
+    }
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
     try {
       const result = await createBoardComment({
         variables: {
@@ -63,13 +67,15 @@ export default function CommentWrite(props: ICommentWriteProps) {
         ],
       });
     } catch (err) {
-      console.error(err);
+      if (err instanceof Error) {
+        alert(err.message);
+        console.error(err);
+      }
     }
     setWriter("");
     setPassword("");
     setRating(0);
     setContents("");
-    console.log(writer, password, rating, contents);
   };
 
   return (

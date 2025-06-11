@@ -21,14 +21,9 @@ import {
   UserName,
   Youtube,
   Hr,
-  CommentTitleWrapper,
-  CommentIcon,
-  CommentLabel,
 } from "./BoardDetail.styles";
 import moment from "moment";
 import { IBoardDetailProps } from "./BoardDetail.types";
-import CommentWrite from "../commentWrite/CommentWrite.container";
-import CommentList from "../commentList/CommentList.container";
 
 export default function BoardDetailUI(props: IBoardDetailProps) {
   return (
@@ -79,12 +74,6 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
         <NavButton onClick={props.onClickDelete}>삭제하기</NavButton>
       </BottomNavWrapper>
       <Hr />
-      <CommentTitleWrapper>
-        <CommentIcon src="/comment/ic_comment.png" />
-        <CommentLabel>댓글</CommentLabel>
-      </CommentTitleWrapper>
-      <CommentWrite isUpdate={false} />
-      <CommentList />
     </Wrapper>
   );
 }

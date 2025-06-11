@@ -29,5 +29,10 @@ export default function CommentList() {
     return <CommentWrite isUpdate={true} />;
   };
   console.log(data?.fetchBoardComments);
+
+  const onClickDelete = () => {
+    console.log("delete clicked");
+    // 여기에 삭제 로직을 추가할 수 있습니다.
+  };
   return <CommentListUI data={data} onClickUpdate={onClickUpdate} />;
 }
