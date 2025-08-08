@@ -23,12 +23,11 @@ import {
   RegisterButton,
   Error,
   RegisterForm,
-} from "../../../src/components/features/boardRegister/BoardRegister.styles";
+} from '../../../src/components/features/boardRegister/BoardRegister.styles';
 
-import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import { gql, useMutation } from '@apollo/client';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 const CREATE_BOARD = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
@@ -59,7 +58,7 @@ export default function NewPage() {
 
   const [createBoard] = useMutation(CREATE_BOARD);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     const result = await createBoard({
       variables: {
         createBoardInput: {
@@ -73,7 +72,7 @@ export default function NewPage() {
     });
 
     console.log(result.data);
-    alert("게시물이 등록되었습니다");
+    alert('게시물이 등록되었습니다');
     router.push(`/boards/${result.data.createBoard._id}`);
   };
 
@@ -86,20 +85,19 @@ export default function NewPage() {
           <Writer
             type="text"
             placeholder="이름을 적어주세요."
-            {...register("writer", {
-              required: "작성자를 입력하지 않았습니다. 작성자를 입력해주세요",
+            {...register('writer', {
+              required: '작성자를 입력하지 않았습니다. 작성자를 입력해주세요',
             })}
           />
-          <Error>{errors.writer?.message}</Error>
+          <Error>{errors.writer?.message ?? ''}</Error>
         </InputWrapper>
         <InputWrapper>
           <Label>비밀번호</Label>
           <Password
             type="password"
             placeholder="비밀번호를 입력해주세요."
-            {...register("password", {
-              required:
-                "비밀번호를 입력하지 않았습니다. 비밀번호를 입력해주세요",
+            {...register('password', {
+              required: '비밀번호를 입력하지 않았습니다. 비밀번호를 입력해주세요',
             })}
           />
           <Error>{errors.password?.message}</Error>
@@ -110,8 +108,8 @@ export default function NewPage() {
         <Subject
           type="text"
           placeholder="제목을 작성해주세요."
-          {...register("subject", {
-            required: "제목을 입력하지 않았습니다. 제목을 입력해주세요.",
+          {...register('subject', {
+            required: '제목을 입력하지 않았습니다. 제목을 입력해주세요.',
           })}
         />
         <Error>{errors.subject?.message}</Error>
@@ -120,8 +118,8 @@ export default function NewPage() {
         <Label>내용</Label>
         <Contents
           placeholder="내용을 작성해주세요."
-          {...register("contents", {
-            required: "내용을 입력하지 않았습니다. 내용을 입력해주세요",
+          {...register('contents', {
+            required: '내용을 입력하지 않았습니다. 내용을 입력해주세요',
           })}
         />
         <Error>{errors.contents?.message}</Error>
@@ -129,18 +127,15 @@ export default function NewPage() {
       <InputWrapper>
         <Label>주소</Label>
         <ZipcodeWrapper>
-          <Zipcode placeholder="07250" {...register("zipcode")} />
+          <Zipcode placeholder="07250" {...register('zipcode')} />
           <SearchButton>우편번호 검색</SearchButton>
         </ZipcodeWrapper>
-        <Address {...register("address")} />
-        <Address {...register("addressdetail")} />
+        <Address {...register('address')} />
+        <Address {...register('addressdetail')} />
       </InputWrapper>
       <InputWrapper>
         <Label>유튜브</Label>
-        <Youtube
-          placeholder="링크를 복사해주세요."
-          {...register("youtubeUrl")}
-        />
+        <Youtube placeholder="링크를 복사해주세요." {...register('youtubeUrl')} />
       </InputWrapper>
       <ImageWrapper>
         <Label>사진 첨부</Label>

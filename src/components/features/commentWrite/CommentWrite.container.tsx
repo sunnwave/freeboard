@@ -1,22 +1,19 @@
-import { useRouter } from "next/router";
-import CommentWriteUI from "./CommentWrite.presenter";
-import { useMutation, useQuery } from "@apollo/client";
-import {
-  CREATE_BOARD_COMMENT,
-  FETCH_BOARD_COMMENTS,
-} from "./CommentWrite.queries";
-import { ChangeEvent, useState } from "react";
-import { ICommentWriteProps } from "./CommentWrite.types";
+import { useRouter } from 'next/router';
+import CommentWriteUI from './CommentWrite.presenter';
+import { useMutation } from '@apollo/client';
+import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENTS } from './CommentWrite.queries';
+import { ChangeEvent, useState } from 'react';
+import { ICommentWriteProps } from './CommentWrite.types';
 
 export default function CommentWrite(props: ICommentWriteProps) {
   const router = useRouter();
 
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
+  const [writer, setWriter] = useState('');
+  const [password, setPassword] = useState('');
   const [rating, setRating] = useState(0);
-  const [contents, setContents] = useState("");
+  const [contents, setContents] = useState('');
   const [contentsCount, setContentsCount] = useState(0);
 
   function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
@@ -38,19 +35,19 @@ export default function CommentWrite(props: ICommentWriteProps) {
 
   const onClickRegister = async () => {
     if (!contents) {
-      alert("댓글을 작성해주세요.");
+      alert('댓글을 작성해주세요.');
       return;
     }
     if (!password) {
-      alert("비밀번호를 입력해주세요.");
+      alert('비밀번호를 입력해주세요.');
       return;
     }
     try {
-      const result = await createBoardComment({
+      await createBoardComment({
         variables: {
           boardId: router.query.boardId,
           createBoardCommentInput: {
-            writer: writer ? writer : "익명",
+            writer: writer ? writer : '익명',
             password,
             contents,
             rating,
@@ -60,22 +57,23 @@ export default function CommentWrite(props: ICommentWriteProps) {
           {
             query: FETCH_BOARD_COMMENTS,
             variables: {
-              page: 1,
-              boardId: router.query.boardId,
+              page: 10,
+              boardId: router.query.boardId as string,
             },
           },
         ],
       });
+      alert('댓글이 등록되었습니다.');
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);
         console.error(err);
       }
     }
-    setWriter("");
-    setPassword("");
+    setWriter('');
+    setPassword('');
     setRating(0);
-    setContents("");
+    setContents('');
   };
 
   return (

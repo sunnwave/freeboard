@@ -1,4 +1,4 @@
-import BoardRegister from "../../../src/components/features/boardRegister/BoardRegister.container";
+import BoardRegister from '../../../src/components/features/boardRegister/BoardRegister.container';
 
 export default function NewPage() {
   return (

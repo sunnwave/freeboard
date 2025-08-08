@@ -21,49 +21,44 @@ import {
   UserName,
   Youtube,
   Hr,
-} from "./BoardDetail.styles";
-import moment from "moment";
-import { IBoardDetailProps } from "./BoardDetail.types";
+} from './BoardDetail.styles';
+import moment from 'moment';
+import { IBoardDetailProps } from './BoardDetail.types';
 
 export default function BoardDetailUI(props: IBoardDetailProps) {
   return (
     <Wrapper>
       <BoardWrapper>
         <Header>
-          <ProfileImg src={"/detailBoard/profile.png"} />
+          <ProfileImg src={'/detailBoard/profile.png'} />
           <TextWrapper>
             <UserName>{props.data?.fetchBoard?.writer}</UserName>
             <Date>
               Date:
-              {moment(props.data?.fetchBoard?.createdAt).format("YYYY.MM.DD")}
+              {moment(props.data?.fetchBoard?.createdAt).format('YYYY.MM.DD')}
             </Date>
           </TextWrapper>
           <IconWrapper>
-            <HeaderIcon src={"/detailBoard/ic_link.png"} />
-            <HeaderIcon src={"/detailBoard/ic_location.png"} />
+            <HeaderIcon src={'/detailBoard/ic_link.png'} />
+            <HeaderIcon src={'/detailBoard/ic_location.png'} />
             <LocationPop>
-              서울특별시 영등포구 양산로 200 (영등포동5가, 영등포시장역) 영등포
-              타임스퀘어 2층
+              서울특별시 영등포구 양산로 200 (영등포동5가, 영등포시장역) 영등포 타임스퀘어 2층
             </LocationPop>
           </IconWrapper>
         </Header>
         <ContentsWrapper>
           <Title>{props.data?.fetchBoard?.title}</Title>
-          <Image src={"/detailBoard/image.png"} />
+          <Image src={'/detailBoard/image.png'} />
           <DetailContents>{props.data?.fetchBoard?.contents}</DetailContents>
           <Youtube></Youtube>
           <LikesContainer>
             <LikeWrapper>
-              <LikeIcon src={"/detailBoard/ic_thumb_up.png"} />
-              <Count style={{ color: "#FFD600" }}>
-                {props.data?.fetchBoard?.likeCount}
-              </Count>
+              <LikeIcon src={'/detailBoard/ic_thumb_up.png'} />
+              <Count style={{ color: '#FFD600' }}>{props.data?.fetchBoard?.likeCount}</Count>
             </LikeWrapper>
             <LikeWrapper>
-              <LikeIcon src={"/detailBoard/ic_thumb_down.png"} />
-              <Count style={{ color: "#828282" }}>
-                {props.data?.fetchBoard?.dislikeCount}
-              </Count>
+              <LikeIcon src={'/detailBoard/ic_thumb_down.png'} />
+              <Count style={{ color: '#828282' }}>{props.data?.fetchBoard?.dislikeCount}</Count>
             </LikeWrapper>
           </LikesContainer>
         </ContentsWrapper>

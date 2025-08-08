@@ -23,14 +23,14 @@ import {
   ButtonWrapper,
   RegisterButton,
   Error,
-} from "./BoardRegister.styles";
-import { IBoardRegisterUIProps } from "./BoardRegister.types";
+} from './BoardRegister.styles';
+import { IBoardRegisterUIProps } from './BoardRegister.types';
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
     <>
       <Wrapper>
-        <Title>게시물 {props.isUpdate ? "수정" : "등록"}</Title>
+        <Title>게시물 {props.isUpdate ? '수정' : '등록'}</Title>
         <WriterWrapper>
           <InputWrapper>
             <Label>작성자</Label>
@@ -39,7 +39,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
               placeholder="이름을 적어주세요."
               onChange={props.onChangeWriter}
               //TIL: undefined 또는 null일 때는 빈 문자열로 설정
-              defaultValue={props?.data?.fetchBoard.writer ?? ""}
+              defaultValue={props?.data?.fetchBoard.writer ?? ''}
               // disabled={Boolean(props.data?.fetchBoard.writer)}
               //TIL: 작성자가 있는 경우에는 수정할 수 없도록 disabled 속성 설정 !!으로 명시적으로 false로 변환
               disabled={!!props.data?.fetchBoard.writer}
@@ -78,9 +78,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <InputWrapper>
           <Label>주소</Label>
           <ZipcodeWrapper>
-            <Zipcode
-              placeholder="07250" /*onChange={props.onChangeZipcode} */
-            />
+            <Zipcode placeholder="07250" /*onChange={props.onChangeZipcode} */ />
             <SearchButton>우편번호 검색</SearchButton>
           </ZipcodeWrapper>
           <Address /* onChange={props.onChangeAddress} */ />
@@ -112,12 +110,10 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         </OptionWrapper>
         <ButtonWrapper>
           <RegisterButton
-            onClick={
-              props.isUpdate ? props.onClickUpdate : props.onClickRegister
-            }
+            onClick={props.isUpdate ? props.onClickUpdate : props.onClickRegister}
             style={{ background: props.buttonColor }}
           >
-            {props.isUpdate ? "수정" : "등록"}하기
+            {props.isUpdate ? '수정' : '등록'}하기
           </RegisterButton>
         </ButtonWrapper>
       </Wrapper>

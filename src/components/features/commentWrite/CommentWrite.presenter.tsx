@@ -1,6 +1,6 @@
-import * as W from "./CommentWrite.styles";
-import { VscStarFull } from "react-icons/vsc";
-import { ICommentWriteUIProps } from "./CommentWrite.types";
+import * as W from './CommentWrite.styles';
+import { VscStarFull } from 'react-icons/vsc';
+import { ICommentWriteUIProps } from './CommentWrite.types';
 
 export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
@@ -12,11 +12,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
       <W.CommentWriteWrapper>
         <W.CommentInfoWrapper>
           <W.InfoInput placeholder="작성자" onChange={props.onChangeWriter} />
-          <W.InfoInput
-            type="password"
-            placeholder="비밀번호"
-            onChange={props.onChangePassword}
-          />
+          <W.InfoInput type="password" placeholder="비밀번호" onChange={props.onChangePassword} />
           <W.StarWrapper>
             <VscStarFull className="star" />
             <VscStarFull className="star" />
@@ -34,7 +30,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
           <W.CommentFooterWrapper>
             <W.CommentCounter>{props.contentsCount}/100</W.CommentCounter>
             <W.CommentRegisterButton onClick={props.onClickRegister}>
-              {props.isUpdate ? "수정" : "등록"}하기
+              {props.isUpdate ? '수정' : '등록'}하기
             </W.CommentRegisterButton>
           </W.CommentFooterWrapper>
         </W.CommentInputWrapper>

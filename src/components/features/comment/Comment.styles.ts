@@ -48,6 +48,7 @@ export const StarWrapper = styled.div`
     color: #bdbdbd;
   }
 `;
+
 export const Comment = styled.div`
   font-family: Noto Sans CJK KR;
   font-size: 16px;
@@ -57,18 +58,23 @@ export const Comment = styled.div`
   color: #4f4f4f;
   margin-bottom: 20px;
 `;
-export const IconWrapper = styled.div``;
-export const UpdateIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
-  cursor: pointer;
+
+export const IconWrapper = styled.div`
+  pointer-events: auto;
+  z-index: 10;
 `;
-export const DeleteIcon = styled.img`
-  width: 24px;
-  height: 24px;
+
+export const IconButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
+
 export const Date = styled.label`
   color: #bdbdbd;
   font-family: Noto Sans CJK KR;

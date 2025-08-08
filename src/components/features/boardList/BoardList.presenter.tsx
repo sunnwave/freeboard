@@ -15,9 +15,9 @@ import {
   RegisterIcon,
   RegisterLabel,
   Wrapper,
-} from "./BoardList.styles";
-import moment from "moment";
-import { IBoardListUIProps } from "./BoardList.types";
+} from './BoardList.styles';
+import moment from 'moment';
+import { IBoardListUIProps } from './BoardList.types';
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (
@@ -26,7 +26,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
         <Wrapper>
           <SearchWrapper>
             <SearchTitleWrapper>
-              <SearchIcon src={"/boardsList/ic_search.png"} />
+              <SearchIcon src={'/boardsList/ic_search.png'} />
               <SearchTitle placeholder="제목을 검색해주세요" />
             </SearchTitleWrapper>
             <SearchDateWrapper>
@@ -47,24 +47,18 @@ export default function BoardListUI(props: IBoardListUIProps) {
               {props.data?.fetchBoards.map((el, index) => (
                 <Tr key={el._id}>
                   <Td>{index + 1}</Td>
-                  <Td
-                    className="title"
-                    onClick={props.onClickBoardToDetail}
-                    id={el._id}
-                  >
+                  <Td className="title" onClick={props.onClickBoardToDetail} id={el._id}>
                     {el.title}
                   </Td>
                   <Td>{el.writer}</Td>
-                  <Td>{moment(el.createdAt).format("YYYY.MM.DD")}</Td>
+                  <Td>{moment(el.createdAt).format('YYYY.MM.DD')}</Td>
                 </Tr>
               ))}
             </tbody>
           </Table>
           <RegisterButton>
-            <RegisterIcon src={"/boardsList/ic_register.png"} />
-            <RegisterLabel onClick={props.onClickRegister}>
-              게시물 등록하기
-            </RegisterLabel>
+            <RegisterIcon src={'/boardsList/ic_register.png'} />
+            <RegisterLabel onClick={props.onClickRegister}>게시물 등록하기</RegisterLabel>
           </RegisterButton>
         </Wrapper>
       </Body>

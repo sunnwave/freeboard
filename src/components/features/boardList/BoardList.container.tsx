@@ -1,17 +1,12 @@
-import { useQuery } from "@apollo/client";
-import { FETCH_BOARDS } from "./BoardList.queries";
-import { useRouter } from "next/router";
-import {
-  IQuery,
-  IQueryFetchBoardsArgs,
-} from "../../../commons/types/generated/types";
-import { MouseEvent } from "react";
-import BoardListUI from "./BoardList.presenter";
+import { useQuery } from '@apollo/client';
+import { FETCH_BOARDS } from './BoardList.queries';
+import { useRouter } from 'next/router';
+import { IQuery, IQueryFetchBoardsArgs } from '../../../commons/types/generated/types';
+import { MouseEvent } from 'react';
+import BoardListUI from './BoardList.presenter';
 
 export default function BoardList() {
-  const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(
-    FETCH_BOARDS
-  );
+  const { data } = useQuery<Pick<IQuery, 'fetchBoards'>, IQueryFetchBoardsArgs>(FETCH_BOARDS);
 
   const router = useRouter();
 
@@ -23,7 +18,7 @@ export default function BoardList() {
   };
 
   const onClickRegister = () => {
-    console.log("게시글 등록 클릭");
+    console.log('게시글 등록 클릭');
     router.push(`/boards/new`);
   };
   return (

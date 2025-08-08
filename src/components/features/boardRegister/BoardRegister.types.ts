@@ -1,8 +1,8 @@
-import { ChangeEvent } from "react";
-import { IQuery } from "../../../commons/types/generated/types";
+import { ChangeEvent } from 'react';
+import { IQuery } from '../../../commons/types/generated/types';
 
 export interface IBoardRegisterProps {
-  data?: Pick<IQuery, "fetchBoard">;
+  data?: Pick<IQuery, 'fetchBoard'>;
   isUpdate?: boolean;
 }
 
@@ -16,7 +16,7 @@ export interface ImyUpdateBoardInput {
 }
 
 export interface IBoardRegisterUIProps {
-  data?: Pick<IQuery, "fetchBoard">;
+  data?: Pick<IQuery, 'fetchBoard'>;
   isUpdate?: boolean;
   onChangeWriter: (event: React.ChangeEvent<HTMLInputElement>) => void;
   writerError: string;
