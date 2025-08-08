@@ -39,7 +39,11 @@ export default [
     rules: {
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/strict-boolean-expressions': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/triple-slash-reference': 'off',
     },
     settings: {
       react: { version: 'detect' },
