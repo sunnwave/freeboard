@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 
 export const Body = styled.div`
   /* width: 1920px; */
-  padding-top: 50px;
+  /* padding-top: 50px;
   padding-left: 360px;
-  padding-right: 360px;
+  padding-right: 360px; */
   display: flex;
   flex-direction: column;
 `;

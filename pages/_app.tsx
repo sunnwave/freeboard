@@ -2,6 +2,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { AppProps } from 'next/app';
 import GlobalStyles from '../styles/GlobalStyles';
+import Layout from '../src/components/commons/layout/Layout.container';
 
 export default function App({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -10,11 +11,11 @@ export default function App({ Component, pageProps }: AppProps) {
   });
 
   return (
-    // <>
     <ApolloProvider client={client}>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ApolloProvider>
-    // </>
   );
 }
