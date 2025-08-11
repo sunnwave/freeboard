@@ -1,3 +1,5 @@
+import NavbarUI from './Navbar.presenter';
+
 export default function Navbar() {
-  return <div>Navbar Component</div>;
+  return <NavbarUI />;
 }

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import BoardRegisterUI from './BoardRegister.presenter';
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardRegister.queries';
 import { IBoardRegisterProps, ImyUpdateBoardInput } from './BoardRegister.types';

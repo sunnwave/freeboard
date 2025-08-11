@@ -1,3 +1,5 @@
+import CarouselUI from './Carousel.presenter';
+
 export default function Carousel() {
-  return <div>Carousel Component</div>;
+  return <CarouselUI />;
 }
