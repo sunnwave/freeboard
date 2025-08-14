@@ -12,9 +12,6 @@ import BoardDetailUI from './BoardDetail.presenter';
 export default function BoardDetail() {
   const router = useRouter();
 
-  const foo = 123;
-  console.log(foo);
-
   if (!router || typeof router.query.boardId !== 'string') {
     return <></>;
   }

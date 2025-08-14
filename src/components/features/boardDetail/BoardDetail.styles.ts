@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 200px 360px;
 `;
 
 export const BoardWrapper = styled.div`
   margin-bottom: 101px;
   padding: 80px 102px 80px 102px;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   min-height: 1600px;
   box-shadow: 0px 4px 20px 0px #00000033;
   display: flex;
@@ -170,6 +170,7 @@ export const NavButton = styled.button`
 `;
 export const Hr = styled.hr`
   width: 100%;
+  max-width: 1200px;
   border: 1px solid #bdbdbd;
   margin-top: 87px;
 `;
