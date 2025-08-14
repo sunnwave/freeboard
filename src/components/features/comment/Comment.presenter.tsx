@@ -1,7 +1,13 @@
 import * as C from './Comment.styles';
-import { VscStarFull } from 'react-icons/vsc';
+// import { VscStarFull } from 'react-icons/vsc';
 import moment from 'moment';
 import { ICommentUIProps } from './Comment.types';
+// import { Rate } from 'antd';
+
+import dynamic from 'next/dynamic';
+
+// SSR에서 제외한 antd Rate 로드
+const Rate = dynamic(() => import('antd').then(mod => mod.Rate), { ssr: false });
 
 export default function CommentUI(props: ICommentUIProps) {
   return (
@@ -11,13 +17,7 @@ export default function CommentUI(props: ICommentUIProps) {
         <C.ProfileInfoWrapper>
           <C.NameStarWrapper>
             <C.UserName>{props.data?.writer}</C.UserName>
-            <C.StarWrapper>
-              <VscStarFull className="star" />
-              <VscStarFull className="star" />
-              <VscStarFull className="star" />
-              <VscStarFull className="star" />
-              <VscStarFull className="star" />
-            </C.StarWrapper>
+            <Rate value={props.data?.rating || 0} disabled />
           </C.NameStarWrapper>
           <C.Comment>{props.data?.contents}</C.Comment>
           <C.Date>{moment(props.data?.createdAt).format('YYYY.MM.DD')}</C.Date>

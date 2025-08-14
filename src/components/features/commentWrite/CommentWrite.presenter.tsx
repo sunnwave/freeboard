@@ -1,6 +1,9 @@
 import * as W from './CommentWrite.styles';
-import { VscStarFull } from 'react-icons/vsc';
+// import { VscStarFull } from 'react-icons/vsc';
 import { ICommentWriteUIProps } from './CommentWrite.types';
+import dynamic from 'next/dynamic';
+
+const Rate = dynamic(() => import('antd').then(mod => mod.Rate), { ssr: false });
 
 export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
@@ -13,13 +16,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
         <W.CommentInfoWrapper>
           <W.InfoInput placeholder="작성자" onChange={props.onChangeWriter} />
           <W.InfoInput type="password" placeholder="비밀번호" onChange={props.onChangePassword} />
-          <W.StarWrapper>
-            <VscStarFull className="star" />
-            <VscStarFull className="star" />
-            <VscStarFull className="star" />
-            <VscStarFull className="star" />
-            <VscStarFull className="star" />
-          </W.StarWrapper>
+          <Rate onChange={props.onChangeRating} value={props.rating} />
         </W.CommentInfoWrapper>
         <W.CommentInputWrapper>
           <W.CommentInput

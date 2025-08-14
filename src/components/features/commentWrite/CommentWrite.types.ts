@@ -5,8 +5,9 @@ export interface ICommentWriteProps {
 export interface ICommentWriteUIProps extends ICommentWriteProps {
   onChangeWriter: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // onChangeRating: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeRating: (rate: number) => void;
   onChangeContents: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onClickRegister: () => void;
   contentsCount: number;
+  rating?: number;
 }

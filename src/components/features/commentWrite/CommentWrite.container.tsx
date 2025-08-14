@@ -24,9 +24,9 @@ export default function CommentWrite(props: ICommentWriteProps) {
     setPassword(event.target.value);
   }
 
-  // function onChangeRating(event:ChangeEvent<HTMLSelectElement>) {
-  //   setRating(event.target.value);
-  // }
+  function onChangeRating(rate: number) {
+    setRating(rate);
+  }
 
   function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value);
@@ -81,10 +81,11 @@ export default function CommentWrite(props: ICommentWriteProps) {
       isUpdate={props.isUpdate}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
-      // onChangeRating={onChangeRating}
+      onChangeRating={onChangeRating}
       onChangeContents={onChangeContents}
       onClickRegister={onClickRegister}
       contentsCount={contentsCount}
+      rating={rating}
     />
   );
 }
