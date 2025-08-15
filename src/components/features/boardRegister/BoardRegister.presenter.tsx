@@ -25,6 +25,12 @@ import {
   Error,
 } from './BoardRegister.styles';
 import { IBoardRegisterUIProps } from './BoardRegister.types';
+import DaumPostcodeEmbed from 'react-daum-postcode';
+
+import dynamic from 'next/dynamic';
+
+// SSR에서 제외한 antd Rate 로드
+const Modal = dynamic(() => import('antd').then(mod => mod.Modal), { ssr: false });
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
@@ -78,11 +84,31 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <InputWrapper>
           <Label>주소</Label>
           <ZipcodeWrapper>
-            <Zipcode placeholder="07250" /*onChange={props.onChangeZipcode} */ />
-            <SearchButton>우편번호 검색</SearchButton>
+            <Zipcode
+              placeholder={props.zipcode}
+              defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode ?? ''}
+            />
+            <SearchButton onClick={props.onToggleModal}>우편번호 검색</SearchButton>
+            {props.isModalOpen && (
+              <Modal
+                title="주소 검색"
+                open={props.isModalOpen}
+                onOk={props.onToggleModal}
+                onCancel={props.onToggleModal}
+              >
+                <DaumPostcodeEmbed onComplete={props.hadleAddressComplete}></DaumPostcodeEmbed>
+              </Modal>
+            )}
           </ZipcodeWrapper>
-          <Address /* onChange={props.onChangeAddress} */ />
-          <Address /* onChange={props.onChangeAddressDetail} */ />
+          <Address
+            placeholder={props.address}
+            defaultValue={props?.data?.fetchBoard?.boardAddress?.address ?? ''}
+            disabled
+          />
+          <Address
+            onChange={props.onChangeAddressDetail}
+            defaultValue={props?.data?.fetchBoard?.boardAddress?.addressDetail ?? ''}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>유튜브</Label>

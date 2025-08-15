@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
-import { IQuery } from '../../../commons/types/generated/types';
+import { IBoardAddressInput, IQuery } from '../../../commons/types/generated/types';
+import { Address } from 'react-daum-postcode';
 
 export interface IBoardRegisterProps {
   data?: Pick<IQuery, 'fetchBoard'>;
@@ -9,9 +10,7 @@ export interface IBoardRegisterProps {
 export interface ImyUpdateBoardInput {
   title?: string;
   contents?: string;
-  zipcode?: string;
-  address?: string;
-  addressDetail?: string;
+  boardAddress?: IBoardAddressInput;
   youtube?: string;
 }
 
@@ -26,11 +25,17 @@ export interface IBoardRegisterUIProps {
   titleError: string;
   onChangeContents: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   contentsError: string;
+  isModalOpen: boolean;
+  onToggleModal: () => void;
+  hadleAddressComplete: (data: Address) => void;
   // onChangeZipcode: (event: ChangeEvent<HTMLInputElement>) => void;
   // onChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   // onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickRegister: () => Promise<void>;
   onClickUpdate: () => Promise<void>;
   buttonColor?: string;
+  zipcode?: string;
+  address?: string;
+  addressDetail?: string;
 }

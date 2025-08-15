@@ -90,11 +90,12 @@ export const ZipcodeWrapper = styled.div`
   flex-direction: row;
 `;
 export const Zipcode = styled.input`
-  width: 77px;
+  width: 100px;
   height: 52px;
   top: 1802px;
   left: 461px;
   padding: 20px;
+  text-align: center;
   margin-right: 20px;
   border: 1px solid #bdbdbd;
   &::placeholder {

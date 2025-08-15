@@ -29,6 +29,11 @@ export const CREATE_BOARD = gql`
       createdAt
       updatedAt
       deletedAt
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;

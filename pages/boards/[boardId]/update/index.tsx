@@ -10,6 +10,18 @@ const FETCH_BOARD = gql`
       writer
       title
       contents
+      youtubeUrl
+      likeCount
+      dislikeCount
+      images
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 `;
@@ -23,6 +35,7 @@ export default function UpdatePage() {
   const { data } = useQuery<Pick<IQuery, 'fetchBoard'>, IQueryFetchBoardArgs>(FETCH_BOARD, {
     variables: { boardId: String(router.query.boardId) },
   });
+  console.log('data', data);
 
   return (
     <>

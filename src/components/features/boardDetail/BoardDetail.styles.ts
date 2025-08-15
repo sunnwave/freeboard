@@ -11,8 +11,8 @@ export const Wrapper = styled.div`
 export const BoardWrapper = styled.div`
   margin-bottom: 101px;
   padding: 80px 102px 80px 102px;
-  width: 100%;
-  max-width: 1200px;
+  /* width: 100%; */
+  width: 1200px;
   min-height: 1600px;
   box-shadow: 0px 4px 20px 0px #00000033;
   display: flex;
@@ -131,6 +131,10 @@ export const LikeIcon = styled.img`
   height: 24px;
   display: flex;
   flex-direction: column;
+  :hover {
+    cursor: pointer;
+    transform: scale(1.3);
+  }
 `;
 export const Count = styled.div`
   font-family: Noto Sans CJK KR;
@@ -150,11 +154,11 @@ export const BottomNavWrapper = styled.div`
   gap: 24px;
 `;
 export const NavButton = styled.button`
-  width: Hug (179px) px;
-  height: Fixed (45px) px;
+  width: 179px;
+  height: 45px;
   top: 2378px;
   left: 677px;
-  padding: 14px 60px 14px 60px;
+  /* padding: 14px 60px 14px 60px; */
   border: 1px solid #bdbdbd;
   background: #ffffff;
   font-family: Noto Sans CJK KR;
@@ -169,8 +173,7 @@ export const NavButton = styled.button`
   }
 `;
 export const Hr = styled.hr`
-  width: 100%;
-  max-width: 1200px;
+  width: 1200px;
   border: 1px solid #bdbdbd;
   margin-top: 87px;
 `;

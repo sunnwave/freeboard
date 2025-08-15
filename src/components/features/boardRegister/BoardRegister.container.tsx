@@ -4,16 +4,20 @@ import { useMutation } from '@apollo/client';
 import BoardRegisterUI from './BoardRegister.presenter';
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardRegister.queries';
 import { IBoardRegisterProps, ImyUpdateBoardInput } from './BoardRegister.types';
+import { Address } from 'react-daum-postcode';
+import { set } from 'react-hook-form';
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const [writer, setWriter] = useState('');
   const [password, setPassword] = useState('');
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
-  // const [zipcode, setZipcode] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [addressDetail, setAddressDetail] = useState("");
+  const [zipcode, setZipcode] = useState('');
+  const [address, setAddress] = useState('');
+  const [addressDetail, setAddressDetail] = useState('');
   // const [youtubeUrl, setYoutubeUrl] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [buttonColor, setButtonColor] = useState('#EFEFEF');
 
@@ -77,12 +81,23 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   // function onChangeAddress(event: ChangeEvent<HTMLInputElement>) {
   //   setAddress(event.target.value);
   // }
-  // function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
-  //   setAddressDetail(event.target.value);
-  // }
+  function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
+    setAddressDetail(event.target.value);
+  }
   // function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
   //   setYoutubeUrl(event.target.value);
   // }
+
+  const onToggleModal = (): void => {
+    setIsModalOpen(prev => !prev);
+  };
+
+  const hadleAddressComplete = (data: Address) => {
+    console.log(data);
+    setZipcode(data.zonecode);
+    setAddress(data.address);
+    onToggleModal();
+  };
 
   const onClickRegister = async () => {
     if (!writer) {
@@ -107,14 +122,17 @@ export default function BoardRegister(props: IBoardRegisterProps) {
               password,
               title,
               contents,
-              // zipcode,
-              // address,
-              // addressDetail,
+              boardAddress: {
+                zipcode,
+                address,
+                addressDetail,
+              },
               // youtubeUrl,
             },
           },
         });
         alert('게시글이 등록되었습니다.');
+        console.log('result', result);
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
         if (error instanceof Error) {
@@ -130,10 +148,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
     if (
       !title &&
-      !contents
-      // &&!zipcode
-      // &&!address
-      // &&!addressDetail
+      !contents &&
+      !zipcode &&
+      !address &&
+      !addressDetail
       // &&!youtubeUrl
     ) {
       alert('수정된 내용이 없습니다.');
@@ -147,9 +165,13 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
     if (title) myUpdateBoardInput.title = title;
     if (contents) myUpdateBoardInput.contents = contents;
-    // if (zipcode) myUpdateBoardInput.zipcode = zipcode;
-    // if (address) myUpdateBoardInput.address = address;
-    // if (addressDetail) myUpdateBoardInput.addressDetail = addressDetail;
+
+    if (!myUpdateBoardInput.boardAddress) {
+      myUpdateBoardInput.boardAddress = {};
+    }
+    if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
+    if (address) myUpdateBoardInput.boardAddress.address = address;
+    if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
     // if (youtubeUrl) myUpdateBoardInput.youtube = youtubeUrl;
 
     try {
@@ -189,13 +211,19 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         titleError={titleError}
         onChangeContents={onChangeContents}
         contentsError={contentsError}
+        isModalOpen={isModalOpen}
+        onToggleModal={onToggleModal}
+        hadleAddressComplete={hadleAddressComplete}
         // onChangeZipcode={onChangeZipcode}
         // onChangeAddress={onChangeAddress}
-        // onChangeAddressDetail={onChangeAddressDetail}
+        onChangeAddressDetail={onChangeAddressDetail}
         // onChangeYoutube={onChangeYoutube}
         onClickRegister={onClickRegister}
         onClickUpdate={onClickUpdate}
         buttonColor={buttonColor}
+        zipcode={zipcode}
+        address={address}
+        addressDetail={addressDetail}
       />
     </>
   );
