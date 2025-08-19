@@ -8,19 +8,42 @@ import {
   IQueryFetchBoardArgs,
 } from '../../../commons/types/generated/types';
 import BoardDetailUI from './BoardDetail.presenter';
+import { useState } from 'react';
+import { set } from 'react-hook-form';
 
 export default function BoardDetail() {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+  const [confirmResult, setConfirmResult] = useState(false);
+
+  const { data } = useQuery<Pick<IQuery, 'fetchBoard'>, IQueryFetchBoardArgs>(FETCH_BOARD, {
+    variables: { boardId: router.query.boardId as string },
+  });
+
+  console.log('data', data);
+  const [deleteBoard] = useMutation<Pick<IMutation, 'deleteBoard'>, IMutationDeleteBoardArgs>(
+    DELETE_BOARD,
+  );
 
   if (!router || typeof router.query.boardId !== 'string') {
     return <></>;
   }
-  const { data } = useQuery<Pick<IQuery, 'fetchBoard'>, IQueryFetchBoardArgs>(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId as string },
-  });
-  const [deleteBoard] = useMutation<Pick<IMutation, 'deleteBoard'>, IMutationDeleteBoardArgs>(
-    DELETE_BOARD,
-  );
+
+  const onToggleModal = (): void => {
+    setIsModalOpen(prev => !prev);
+  };
+
+  const handleOk = () => {
+    setConfirmResult(true);
+    onToggleModal();
+  };
+
+  const handleCancel = () => {
+    setConfirmResult(false);
+    onToggleModal();
+  };
 
   const onClickToList = () => {
     router.push(`/boards`);
@@ -30,7 +53,11 @@ export default function BoardDetail() {
   };
 
   const onClickDelete = async () => {
-    const confirmResult = confirm('게시물을 삭제하시겠습니까?');
+    setModalTitle('게시물 삭제');
+    setMessage('게시물을 삭제하시겠습니까?');
+    setIsModalOpen(true);
+    console.log('confirmResult', confirmResult);
+    // const confirmResult = confirm('게시물을 삭제하시겠습니까?');
     if (confirmResult) {
       try {
         if (!router.query.boardId || typeof router.query.boardId !== 'string') {
@@ -41,9 +68,13 @@ export default function BoardDetail() {
             boardId: router.query.boardId,
           },
         });
-        alert('게시물을 삭제하였습니다');
+
+        setMessage('게시물이 삭제되었습니다');
+        onToggleModal();
         router.push(`/boards`);
       } catch (err) {
+        setMessage('게시물 삭제에 실패하였습니다');
+        onToggleModal();
         console.error(err);
       }
     }
@@ -55,6 +86,12 @@ export default function BoardDetail() {
         onClickToList={onClickToList}
         onClickUpdate={onClickUpdate}
         onClickDelete={onClickDelete}
+        onToggleModal={onToggleModal}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        isModalOpen={isModalOpen}
+        message={message}
+        modalTitle={modalTitle}
       />
     </>
   );

@@ -25,17 +25,17 @@ export interface IBoardRegisterUIProps {
   titleError: string;
   onChangeContents: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   contentsError: string;
-  isModalOpen: boolean;
-  onToggleModal: () => void;
-  hadleAddressComplete: (data: Address) => void;
-  // onChangeZipcode: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void;
+  onToggleAddressModal: () => void;
+  onToggleAlertModal: () => void;
+  handleAddressComplete: (data: Address) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickRegister: () => Promise<void>;
   onClickUpdate: () => Promise<void>;
   buttonColor?: string;
   zipcode?: string;
   address?: string;
   addressDetail?: string;
+  isAddressModalOpen?: boolean;
+  alertMessage?: string;
+  isAlertModalOpen: boolean;
 }

@@ -28,9 +28,10 @@ import { IBoardRegisterUIProps } from './BoardRegister.types';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 
 import dynamic from 'next/dynamic';
+import AlertModal from '../../commons/alertModal/AlertModal';
 
 // SSR에서 제외한 antd Rate 로드
-const Modal = dynamic(() => import('antd').then(mod => mod.Modal), { ssr: false });
+const Modal = dynamic(() => import('antd/es/modal'), { ssr: false });
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
@@ -88,15 +89,16 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
               placeholder={props.zipcode}
               defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode ?? ''}
             />
-            <SearchButton onClick={props.onToggleModal}>우편번호 검색</SearchButton>
-            {props.isModalOpen && (
+            <SearchButton onClick={props.onToggleAddressModal}>우편번호 검색</SearchButton>
+            {props.isAddressModalOpen && (
               <Modal
+                centered
                 title="주소 검색"
-                open={props.isModalOpen}
-                onOk={props.onToggleModal}
-                onCancel={props.onToggleModal}
+                open={props.isAddressModalOpen}
+                onOk={props.onToggleAddressModal}
+                onCancel={props.onToggleAddressModal}
               >
-                <DaumPostcodeEmbed onComplete={props.hadleAddressComplete}></DaumPostcodeEmbed>
+                <DaumPostcodeEmbed onComplete={props.handleAddressComplete}></DaumPostcodeEmbed>
               </Modal>
             )}
           </ZipcodeWrapper>
@@ -141,6 +143,13 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           >
             {props.isUpdate ? '수정' : '등록'}하기
           </RegisterButton>
+          {props.isAlertModalOpen && (
+            <AlertModal
+              open={props.isAlertModalOpen}
+              message={props.alertMessage}
+              onClose={props.onToggleAlertModal}
+            />
+          )}
         </ButtonWrapper>
       </Wrapper>
     </>

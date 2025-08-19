@@ -5,4 +5,10 @@ export interface IBoardDetailProps {
   onClickToList: () => void;
   onClickUpdate: () => void;
   onClickDelete: () => void;
+  onToggleModal: () => void;
+  handleOk?: () => void;
+  handleCancel?: () => void;
+  isModalOpen?: boolean;
+  message?: string;
+  modalTitle?: string;
 }

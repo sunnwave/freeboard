@@ -13,7 +13,6 @@ import {
   LikeIcon,
   LikesContainer,
   LikeWrapper,
-  LocationPop,
   NavButton,
   ProfileImg,
   TextWrapper,
@@ -24,6 +23,12 @@ import {
 } from './BoardDetail.styles';
 import moment from 'moment';
 import { IBoardDetailProps } from './BoardDetail.types';
+
+import dynamic from 'next/dynamic';
+import { formatAddress } from '../../../utils/formatAddress';
+
+const Modal = dynamic(() => import('antd').then(mod => mod.Modal), { ssr: false });
+const Tooltip = dynamic(() => import('antd').then(mod => mod.Tooltip), { ssr: false });
 
 export default function BoardDetailUI(props: IBoardDetailProps) {
   return (
@@ -40,12 +45,24 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
           </TextWrapper>
           <IconWrapper>
             <HeaderIcon src={'/detailBoard/ic_link.png'} />
-            <HeaderIcon src={'/detailBoard/ic_location.png'} />
-            <LocationPop>
-              서울특별시 영등포구 양산로 200 (영등포동5가, 영등포시장역) 영등포 타임스퀘어 2층
-            </LocationPop>
+            <Tooltip title={formatAddress(props.data?.fetchBoard?.boardAddress)} placement="top">
+              <HeaderIcon src={'/detailBoard/ic_location.png'} />
+            </Tooltip>
           </IconWrapper>
         </Header>
+        {props.isModalOpen && (
+          <Modal
+            title={props.modalTitle}
+            closable={{ 'aria-label': 'Custom Close Button' }}
+            open={props.isModalOpen}
+            onOk={props.handleOk}
+            okText="확인"
+            onCancel={props.handleCancel}
+            cancelText="취소"
+          >
+            <p>{props.message}</p>
+          </Modal>
+        )}
         <ContentsWrapper>
           <Title>{props.data?.fetchBoard?.title}</Title>
           <Image src={'/detailBoard/image.png'} />

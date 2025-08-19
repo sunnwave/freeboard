@@ -5,7 +5,6 @@ import BoardRegisterUI from './BoardRegister.presenter';
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardRegister.queries';
 import { IBoardRegisterProps, ImyUpdateBoardInput } from './BoardRegister.types';
 import { Address } from 'react-daum-postcode';
-import { set } from 'react-hook-form';
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const [writer, setWriter] = useState('');
@@ -17,7 +16,9 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [addressDetail, setAddressDetail] = useState('');
   // const [youtubeUrl, setYoutubeUrl] = useState("");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const [buttonColor, setButtonColor] = useState('#EFEFEF');
 
@@ -75,12 +76,6 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       setButtonColor('#EFEFEF');
     }
   }
-  // function onChangeZipcode(event: ChangeEvent<HTMLInputElement>) {
-  //   setZipcode(event.target.value);
-  // }
-  // function onChangeAddress(event: ChangeEvent<HTMLInputElement>) {
-  //   setAddress(event.target.value);
-  // }
   function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
   }
@@ -88,15 +83,19 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   //   setYoutubeUrl(event.target.value);
   // }
 
-  const onToggleModal = (): void => {
-    setIsModalOpen(prev => !prev);
+  const onToggleAddressModal = (): void => {
+    setIsAddressModalOpen(prev => !prev);
   };
 
-  const hadleAddressComplete = (data: Address) => {
+  const onToggleAlertModal = (): void => {
+    setIsAlertModalOpen(prev => !prev);
+  };
+
+  const handleAddressComplete = (data: Address) => {
     console.log(data);
     setZipcode(data.zonecode);
     setAddress(data.address);
-    onToggleModal();
+    onToggleAddressModal();
   };
 
   const onClickRegister = async () => {
@@ -131,7 +130,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
             },
           },
         });
-        alert('게시글이 등록되었습니다.');
+        setAlertMessage('게시글이 등록되었습니다.');
+        setIsAlertModalOpen(true);
+        // console.log('alertMessage, isAlertModalOpen', alertMessage, isAlertModalOpen);
+        // alert('게시글이 등록되었습니다.');
         console.log('result', result);
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
@@ -203,27 +205,27 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       <BoardRegisterUI
         data={props.data}
         isUpdate={props.isUpdate}
-        onChangeWriter={onChangeWriter}
         writerError={writerError}
-        onChangePassword={onChangePassword}
         passwordError={passwordError}
-        onChangeTitle={onChangeTitle}
         titleError={titleError}
-        onChangeContents={onChangeContents}
         contentsError={contentsError}
-        isModalOpen={isModalOpen}
-        onToggleModal={onToggleModal}
-        hadleAddressComplete={hadleAddressComplete}
-        // onChangeZipcode={onChangeZipcode}
-        // onChangeAddress={onChangeAddress}
-        onChangeAddressDetail={onChangeAddressDetail}
-        // onChangeYoutube={onChangeYoutube}
-        onClickRegister={onClickRegister}
-        onClickUpdate={onClickUpdate}
         buttonColor={buttonColor}
         zipcode={zipcode}
         address={address}
         addressDetail={addressDetail}
+        isAddressModalOpen={isAddressModalOpen}
+        onChangeWriter={onChangeWriter}
+        onChangePassword={onChangePassword}
+        onChangeTitle={onChangeTitle}
+        onChangeContents={onChangeContents}
+        handleAddressComplete={handleAddressComplete}
+        onChangeAddressDetail={onChangeAddressDetail}
+        onClickRegister={onClickRegister}
+        onClickUpdate={onClickUpdate}
+        onToggleAddressModal={onToggleAddressModal}
+        onToggleAlertModal={onToggleAlertModal}
+        alertMessage={alertMessage}
+        isAlertModalOpen={isAlertModalOpen}
       />
     </>
   );
