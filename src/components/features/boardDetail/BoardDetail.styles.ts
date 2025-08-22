@@ -109,7 +109,7 @@ export const DetailContents = styled.div`
   text-align: left;
   margin-bottom: 120px;
 `;
-export const Youtube = styled.iframe`
+export const Youtube = styled.div`
   width: 486px;
   height: 240px;
   margin-bottom: 160px;

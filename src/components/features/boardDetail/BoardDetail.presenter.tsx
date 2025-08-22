@@ -18,14 +18,15 @@ import {
   TextWrapper,
   Title,
   UserName,
-  Youtube,
   Hr,
+  Youtube,
 } from './BoardDetail.styles';
 import moment from 'moment';
 import { IBoardDetailProps } from './BoardDetail.types';
-
 import dynamic from 'next/dynamic';
 import { formatAddress } from '../../../utils/formatAddress';
+import YoutubePlayer from '../../commons/YoutubePlayer';
+import { getYoutubeVideoId } from '../../../utils/getYoutubeVideoId';
 
 const Modal = dynamic(() => import('antd').then(mod => mod.Modal), { ssr: false });
 const Tooltip = dynamic(() => import('antd').then(mod => mod.Tooltip), { ssr: false });
@@ -67,7 +68,14 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
           <Title>{props.data?.fetchBoard?.title}</Title>
           <Image src={'/detailBoard/image.png'} />
           <DetailContents>{props.data?.fetchBoard?.contents}</DetailContents>
-          <Youtube></Youtube>
+          <Youtube>
+            {props.data?.fetchBoard?.youtubeUrl !== '' && (
+              <YoutubePlayer
+                videoId={getYoutubeVideoId(props.data?.fetchBoard?.youtubeUrl ?? '')}
+              />
+            )}
+          </Youtube>
+
           <LikesContainer>
             <LikeWrapper>
               <LikeIcon src={'/detailBoard/ic_thumb_up.png'} />

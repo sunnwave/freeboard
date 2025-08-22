@@ -25,6 +25,7 @@ export interface IBoardRegisterUIProps {
   titleError: string;
   onChangeContents: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   contentsError: string;
+  onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
   onToggleAddressModal: () => void;
   onToggleAlertModal: () => void;
   handleAddressComplete: (data: Address) => void;
@@ -34,7 +35,6 @@ export interface IBoardRegisterUIProps {
   buttonColor?: string;
   zipcode?: string;
   address?: string;
-  addressDetail?: string;
   isAddressModalOpen?: boolean;
   alertMessage?: string;
   isAlertModalOpen: boolean;

@@ -36,6 +36,17 @@ const Modal = dynamic(() => import('antd/es/modal'), { ssr: false });
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
     <>
+      {props.isAddressModalOpen && (
+        <Modal
+          centered
+          title="주소 검색"
+          open={props.isAddressModalOpen}
+          onOk={props.onToggleAddressModal}
+          onCancel={props.onToggleAddressModal}
+        >
+          <DaumPostcodeEmbed onComplete={props.handleAddressComplete}></DaumPostcodeEmbed>
+        </Modal>
+      )}
       <Wrapper>
         <Title>게시물 {props.isUpdate ? '수정' : '등록'}</Title>
         <WriterWrapper>
@@ -86,26 +97,24 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           <Label>주소</Label>
           <ZipcodeWrapper>
             <Zipcode
+              readOnly
               placeholder={props.zipcode}
-              defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode ?? ''}
+              value={
+                props.zipcode !== ''
+                  ? props.zipcode
+                  : (props.data?.fetchBoard?.boardAddress?.zipcode ?? '')
+              }
             />
             <SearchButton onClick={props.onToggleAddressModal}>우편번호 검색</SearchButton>
-            {props.isAddressModalOpen && (
-              <Modal
-                centered
-                title="주소 검색"
-                open={props.isAddressModalOpen}
-                onOk={props.onToggleAddressModal}
-                onCancel={props.onToggleAddressModal}
-              >
-                <DaumPostcodeEmbed onComplete={props.handleAddressComplete}></DaumPostcodeEmbed>
-              </Modal>
-            )}
           </ZipcodeWrapper>
           <Address
             placeholder={props.address}
-            defaultValue={props?.data?.fetchBoard?.boardAddress?.address ?? ''}
-            disabled
+            value={
+              props.address !== ''
+                ? props.address
+                : (props.data?.fetchBoard?.boardAddress?.address ?? '')
+            }
+            readOnly
           />
           <Address
             onChange={props.onChangeAddressDetail}
@@ -114,10 +123,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         </InputWrapper>
         <InputWrapper>
           <Label>유튜브</Label>
-          <Youtube
-            placeholder="링크를 복사해주세요."
-            // onChange={props.onChangeYoutube}
-          />
+          <Youtube placeholder="링크를 복사해주세요." onChange={props.onChangeYoutube} />
         </InputWrapper>
         <ImageWrapper>
           <Label>사진 첨부</Label>

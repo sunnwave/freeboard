@@ -14,7 +14,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
-  // const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState('');
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
@@ -79,9 +79,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
   }
-  // function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
-  //   setYoutubeUrl(event.target.value);
-  // }
+
+  function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
+    setYoutubeUrl(event.target.value);
+  }
 
   const onToggleAddressModal = (): void => {
     setIsAddressModalOpen(prev => !prev);
@@ -126,7 +127,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
                 address,
                 addressDetail,
               },
-              // youtubeUrl,
+              youtubeUrl,
             },
           },
         });
@@ -148,14 +149,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const onClickUpdate = async () => {
     const myUpdateBoardInput: ImyUpdateBoardInput = {};
 
-    if (
-      !title &&
-      !contents &&
-      !zipcode &&
-      !address &&
-      !addressDetail
-      // &&!youtubeUrl
-    ) {
+    if (!title && !contents && !zipcode && !address && !addressDetail && !youtubeUrl) {
       alert('수정된 내용이 없습니다.');
       return;
     }
@@ -212,12 +206,12 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         buttonColor={buttonColor}
         zipcode={zipcode}
         address={address}
-        addressDetail={addressDetail}
         isAddressModalOpen={isAddressModalOpen}
         onChangeWriter={onChangeWriter}
         onChangePassword={onChangePassword}
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
+        onChangeYoutube={onChangeYoutube}
         handleAddressComplete={handleAddressComplete}
         onChangeAddressDetail={onChangeAddressDetail}
         onClickRegister={onClickRegister}

@@ -9,7 +9,6 @@ import {
 } from '../../../commons/types/generated/types';
 import BoardDetailUI from './BoardDetail.presenter';
 import { useState } from 'react';
-import { set } from 'react-hook-form';
 
 export default function BoardDetail() {
   const router = useRouter();
