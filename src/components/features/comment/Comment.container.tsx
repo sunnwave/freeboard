@@ -1,11 +1,14 @@
 import { useMutation } from '@apollo/client';
 import CommentUI from './Comment.presenter';
 import { ICommentProps } from './Comment.types';
-import { IMutation, IMutationDeleteBoardCommentArgs } from '../../../commons/types/generated/types';
+import {
+  IBoardComment,
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
+} from '../../../commons/types/generated/types';
 import { DELETE_BOARD_COMMENT } from './Comment.queries';
-import { MouseEvent } from 'react';
-import { FETCH_BOARD_COMMENTS } from '../commentList/CommentList.queries';
 import { useRouter } from 'next/router';
+import { Reference, useState } from 'react';
 
 export default function Comment(props: ICommentProps) {
   const router = useRouter();
@@ -15,19 +18,28 @@ export default function Comment(props: ICommentProps) {
     IMutationDeleteBoardCommentArgs
   >(DELETE_BOARD_COMMENT);
 
-  const onClickUpdateBoardComment = async (event: MouseEvent<HTMLButtonElement>) => {
-    console.log('update clicked');
-    // return <CommentWrite isUpdate={true} />;
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [boardCommentId, setBoardCommentId] = useState<string>('');
+
+  const onCancelDeleteModal = () => {
+    setIsDeleteModalOpen(false);
   };
 
-  const onClickDeleteBoardComment = async (boardCommentId?: string) => {
-    console.log('delete clicked');
-    console.log('댓글 삭제 시도', boardCommentId);
+  const onClickUpdateBoardComment = () => {
+    setIsUpdate(true);
+    console.log('update clicked', props.data);
+  };
 
-    const confirmResult = confirm('댓글을 삭제하시겠습니까?');
+  const onClickDeleteBoardComment = (boardCommentId?: string) => {
+    console.log('delete clicked', boardCommentId);
+    setBoardCommentId(boardCommentId ?? '');
+    setIsDeleteModalOpen(true);
+  };
 
+  const onConfirmDeleteBoardComment = async (password: string) => {
     if (!boardCommentId) {
-      // alert("댓글 ID가 없습니다.");
+      alert('댓글 ID가 없습니다.');
       return;
     }
 
@@ -35,38 +47,40 @@ export default function Comment(props: ICommentProps) {
       alert('잘못된 접근입니다.');
       return;
     }
-    if (confirmResult) {
-      try {
-        const commentPassword = prompt('댓글 비밀번호를 입력해주세요.');
-        console.log('댓글 삭제 시도', boardCommentId);
-        await deleteBoardComment({
-          variables: {
-            boardCommentId: boardCommentId,
-            password: String(commentPassword),
-          },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: {
-                pages: 10,
-                boardId: router.query.boardId as string,
+    try {
+      await deleteBoardComment({
+        variables: {
+          boardCommentId: boardCommentId,
+          password: password,
+        },
+        update(cache) {
+          cache.modify({
+            fields: {
+              fetchBoardComments(existingComments: readonly Reference[] = [], { readField }) {
+                return existingComments.filter(
+                  (commentRef: Reference) =>
+                    readField<IBoardComment['_id']>('_id', commentRef) !== boardCommentId,
+                );
               },
             },
-          ],
-        });
-        alert('댓글이 삭제되었습니다.');
-      } catch (error) {
-        alert('댓글 삭제에 실패했습니다.');
-        console.error(error);
-      }
-      return;
+          });
+        },
+      });
+      alert('댓글이 삭제되었습니다.');
+    } catch (error) {
+      alert('댓글 삭제에 실패했습니다.');
+      console.error(error);
     }
   };
   return (
     <CommentUI
       data={props.data}
+      isUpdate={isUpdate}
+      isDeleteModalOpen={isDeleteModalOpen}
+      onCancelDeleteModal={onCancelDeleteModal}
       onClickUpdateBoardComment={onClickUpdateBoardComment}
       onClickDeleteBoardComment={onClickDeleteBoardComment}
+      onConfirmDeleteBoardComment={onConfirmDeleteBoardComment}
     />
   );
 }

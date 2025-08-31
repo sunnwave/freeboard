@@ -53,15 +53,27 @@ export default function CommentWrite(props: ICommentWriteProps) {
             rating,
           },
         },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD_COMMENTS,
-            variables: {
-              page: 10,
-              boardId: router.query.boardId as string,
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_BOARD_COMMENTS,
+        //     variables: {
+        //       page: 1,
+        //       boardId: router.query.boardId as string,
+        //     },
+        //   },
+        // ],
+        update(cache, { data }) {
+          if (!data) return;
+          const newComment = data.createBoardComment;
+
+          cache.modify({
+            fields: {
+              fetchBoardComments(existing = []) {
+                return [newComment, ...existing];
+              },
             },
-          },
-        ],
+          });
+        },
       });
       alert('댓글이 등록되었습니다.');
     } catch (err) {
@@ -86,6 +98,9 @@ export default function CommentWrite(props: ICommentWriteProps) {
       onClickRegister={onClickRegister}
       contentsCount={contentsCount}
       rating={rating}
+      writer={writer}
+      password={password}
+      contents={contents}
     />
   );
 }

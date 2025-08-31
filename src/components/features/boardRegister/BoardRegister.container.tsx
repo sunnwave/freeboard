@@ -168,7 +168,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
     if (address) myUpdateBoardInput.boardAddress.address = address;
     if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
-    // if (youtubeUrl) myUpdateBoardInput.youtube = youtubeUrl;
+    if (youtubeUrl) myUpdateBoardInput.youtube = youtubeUrl;
 
     try {
       //TIL : router.query.boardId의 타입을 확인 router.query.boardId가 string일 때만 작동될 수 있도록 함

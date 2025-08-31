@@ -1,5 +1,8 @@
+import { IBoardComment } from '../../../commons/types/generated/types';
+
 export interface ICommentWriteProps {
   isUpdate?: boolean;
+  data?: IBoardComment;
 }
 
 export interface ICommentWriteUIProps extends ICommentWriteProps {
@@ -10,4 +13,7 @@ export interface ICommentWriteUIProps extends ICommentWriteProps {
   onClickRegister: () => void;
   contentsCount: number;
   rating?: number;
+  writer?: string;
+  password?: string;
+  contents?: string;
 }
