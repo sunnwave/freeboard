@@ -19,7 +19,8 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
             type="text"
             placeholder="작성자"
             onChange={props.onChangeWriter}
-            defaultValue={props?.data?.writer ?? ''}
+            value={props?.data?.writer ?? props.writer ?? ''}
+            // defaultValue={props?.data?.writer ?? ''}
             disabled={!!props.data?.writer}
           />
           <W.InfoInput
@@ -35,8 +36,8 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
           <W.CommentInput
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
             onChange={props.onChangeContents}
-            defaultValue={props?.data?.contents ?? ''}
-            value={props.contents}
+            // defaultValue={props?.data?.contents ?? ''}
+            value={props.contents ?? ''}
             maxLength={100}
           />
           <W.CommentFooterWrapper>

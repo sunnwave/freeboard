@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 1200px;
-  /* margin: 100px; */
   padding: 80px 102px 100px 102px;
   border: 1px solid gray;
   box-shadow: 0px 4px 20px 0px #00000033;
@@ -200,7 +199,6 @@ export const RegisterButton = styled.button`
   margin-left: 12px;
   margin-right: 12px;
   cursor: pointer;
-  /* background: #ffd600; */
 `;
 
 export const Error = styled.div`
