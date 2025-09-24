@@ -1,8 +1,6 @@
+import { Rate } from 'antd';
 import * as W from './CommentWrite.styles';
 import { ICommentWriteUIProps } from './CommentWrite.types';
-import dynamic from 'next/dynamic';
-
-const Rate = dynamic(() => import('antd').then(mod => mod.Rate), { ssr: false });
 
 export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (

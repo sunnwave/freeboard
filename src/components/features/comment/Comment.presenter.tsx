@@ -2,12 +2,9 @@ import * as C from './Comment.styles';
 import moment from 'moment';
 import { ICommentUIProps } from './Comment.types';
 
-import dynamic from 'next/dynamic';
 import CommentWrite from '../commentWrite/CommentWrite.container';
 import PasswordModal from '../../commons/passwordModal/PasswordModal';
-
-// SSR에서 제외한 antd Rate 로드
-const Rate = dynamic(() => import('antd').then(mod => mod.Rate), { ssr: false });
+import { Rate } from 'antd';
 
 export default function CommentUI(props: ICommentUIProps) {
   return (

@@ -1,8 +1,6 @@
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import * as P from './PasswordModal.styles';
-
-const Modal = dynamic(() => import('antd').then(mod => mod.Modal), { ssr: false });
+import { Modal } from 'antd';
 
 interface IPasswordModalProps {
   isPasswordModalOpen: boolean;

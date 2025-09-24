@@ -27,11 +27,8 @@ import {
 import { IBoardRegisterUIProps } from './BoardRegister.types';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 
-import dynamic from 'next/dynamic';
 import AlertModal from '../../commons/alertModal/AlertModal';
-
-// SSR에서 제외한 antd Rate 로드
-const Modal = dynamic(() => import('antd/es/modal'), { ssr: false });
+import { Modal } from 'antd';
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (

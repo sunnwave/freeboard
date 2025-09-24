@@ -23,13 +23,10 @@ import {
 } from './BoardDetail.styles';
 import moment from 'moment';
 import { IBoardDetailProps } from './BoardDetail.types';
-import dynamic from 'next/dynamic';
 import { formatAddress } from '../../../utils/formatAddress';
 import YoutubePlayer from '../../commons/YoutubePlayer';
 import { getYoutubeVideoId } from '../../../utils/getYoutubeVideoId';
-
-const Modal = dynamic(() => import('antd').then(mod => mod.Modal), { ssr: false });
-const Tooltip = dynamic(() => import('antd').then(mod => mod.Tooltip), { ssr: false });
+import { Modal, Tooltip } from 'antd';
 
 export default function BoardDetailUI(props: IBoardDetailProps) {
   return (
