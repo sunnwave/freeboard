@@ -5,7 +5,7 @@ const nextConfig = {
     'antd',
     '@ant-design/icons',
     '@ant-design/icons-svg',
-    'rc-util', // ✅ 추가
+    'rc-util',
     'rc-pagination',
     'rc-picker',
     'rc-tabs',

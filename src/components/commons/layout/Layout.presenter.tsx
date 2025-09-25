@@ -1,10 +1,10 @@
 // components/common/Layout/Layout.presenter.tsx
 import Footer from './footer/Footer.container';
 import Header from './header/Header.container';
-import Navbar from './navbar/Navbar.container';
 import * as S from './Layout.styles';
 import { ReactNode } from 'react';
 import Banner from './banner';
+import Navbar from './navbar';
 
 interface LayoutProps {
   children: ReactNode;
