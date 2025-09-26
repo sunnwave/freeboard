@@ -1,16 +1,14 @@
-// components/common/Layout/Layout.presenter.tsx
-import Footer from './footer/Footer.container';
-import Header from './header/Header.container';
+import Banner from './banner';
+import Header from './header';
 import * as S from './Layout.styles';
 import { ReactNode } from 'react';
-import Banner from './banner';
 import Navbar from './navbar';
+import Footer from './footer';
 
 interface LayoutProps {
   children: ReactNode;
 }
-
-export default function LayoutUI({ children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <S.Container>
       <Header />
