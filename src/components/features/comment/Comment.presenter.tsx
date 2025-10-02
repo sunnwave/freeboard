@@ -3,7 +3,7 @@ import moment from 'moment';
 import { ICommentUIProps } from './Comment.types';
 
 import CommentWrite from '../commentWrite/CommentWrite.container';
-import PasswordModal from '../../commons/passwordModal/PasswordModal';
+import PasswordModal from '../../commons/PasswordModal/PasswordModal';
 import { Rate } from 'antd';
 
 export default function CommentUI(props: ICommentUIProps) {

@@ -1,9 +1,9 @@
-import Banner from './banner';
-import Header from './header';
-import * as S from './Layout.styles';
+import Banner from './Banner';
+import Header from './Header';
 import { ReactNode } from 'react';
-import Navbar from './navbar';
-import Footer from './footer';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import * as S from './Layout.styles';
 
 interface LayoutProps {
   children: ReactNode;

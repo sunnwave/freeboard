@@ -27,7 +27,7 @@ import {
 import { IBoardRegisterUIProps } from './BoardRegister.types';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 
-import AlertModal from '../../commons/alertModal/AlertModal';
+import AlertModal from '../../commons/AlertModal/AlertModal';
 import { Modal } from 'antd';
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {

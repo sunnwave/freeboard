@@ -20,12 +20,7 @@ export const LoginContainer = styled.div`
   justify-content: center;
   gap: 4px;
 `;
-// export const LoginButton = styled.div`
-//   width: 92;
-//   height: 44;
-//   padding: 10px 16px;
-//   margin: 0;
-// `;
+
 export const LoginButton = styled(Link)<{ variant: 'login' | 'signup' }>`
   width: 92px;
   height: 44px;
@@ -48,14 +43,3 @@ export const LoginButton = styled(Link)<{ variant: 'login' | 'signup' }>`
 
   background: ${({ variant }) => (variant === 'signup' ? '#ffd600' : 'transparent')};
 `;
-
-// export const Link = styled.a`
-//   text-decoration: none;
-//   font-family: Noto Sans CJK KR;
-//   font-weight: 700;
-//   font-size: 16px;
-//   line-height: 100%;
-//   letter-spacing: 0%;
-//   text-align: center;
-//   color: inherit;
-// `;
