@@ -4,26 +4,19 @@ import { IQuery, IQueryFetchBoardsArgs } from '../../../commons/types/generated/
 import { ApolloQueryResult } from '@apollo/client';
 
 interface IPaginationProps {
-  lastPage: number;
+  boardsCount: number;
   pageGroupSize: number;
-  startPage: number;
-  currentPage: number;
-  setStartPage: React.Dispatch<React.SetStateAction<number>>; // 부모 컴포넌트에서 관리하는 상태
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>; // 부모 컴포넌트에서 관리하는 상태
   refetch: (
     variables?: Partial<IQueryFetchBoardsArgs>,
   ) => Promise<ApolloQueryResult<Pick<IQuery, 'fetchBoards'>>>;
 }
 
-export default function Pagination({
-  lastPage,
-  pageGroupSize,
-  startPage,
-  currentPage,
-  setStartPage,
-  setCurrentPage,
-  refetch,
-}: IPaginationProps) {
+export default function Pagination({ boardsCount, pageGroupSize, refetch }: IPaginationProps) {
+  const [startPage, setStartPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const lastPage = Math.ceil(boardsCount / 10); //총 페이지 수
+
   const onClickPage = (page: number) => {
     if (page < 1 || page > lastPage) return;
 
