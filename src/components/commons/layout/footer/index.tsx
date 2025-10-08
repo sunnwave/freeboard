@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <div>Footer Component</div>;
+  return <div style={{ height: '80px', padding: '30px' }}>Footer Component</div>;
 }

@@ -13,4 +13,5 @@ export const Main = styled.main`
   padding-top: 80px;
   padding-left: 360px;
   padding-right: 360px;
+  padding-bottom: 100px;
 `;
