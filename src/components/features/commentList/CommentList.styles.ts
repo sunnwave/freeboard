@@ -77,3 +77,8 @@ export const Date = styled.label`
   line-height: 17.76px;
   text-align: left;
 `;
+
+export const ScrollContainer = styled.div`
+  width: 100%;
+  max-width: 1200px;
+`;

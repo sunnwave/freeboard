@@ -47,26 +47,23 @@ export default function Pagination({ boardsCount, pageGroupSize, refetch }: IPag
       <PaginationButton isActive={currentPage > pageGroupSize} onClick={onClickPrevGroup}>
         {'<<'}
       </PaginationButton>
-
       {/* 한 페이지 앞으로 이동 */}
       <PaginationButton isActive={currentPage !== 1} onClick={() => onClickPage(currentPage - 1)}>
         {'<'}
       </PaginationButton>
-
       {/* 페이지 넘버 */}
-      {new Array(pageGroupSize).fill(null).map(
-        (_, index) =>
-          startPage + index <= lastPage && (
-            <PageNumber
-              key={startPage + index}
-              onClick={() => onClickPage(startPage + index)}
-              isActive={currentPage === startPage + index}
-            >
-              {startPage + index}
-            </PageNumber>
-          ),
-      )}
-
+      {new Array(pageGroupSize)
+        .fill(null)
+        .filter((_, index) => startPage + index <= lastPage)
+        .map((_, index) => (
+          <PageNumber
+            key={startPage + index}
+            onClick={() => onClickPage(startPage + index)}
+            isActive={currentPage === startPage + index}
+          >
+            {startPage + index}
+          </PageNumber>
+        ))}
       {/* 한 페이지 뒤로 이동 */}
       <PaginationButton
         isActive={currentPage !== lastPage}
@@ -74,7 +71,6 @@ export default function Pagination({ boardsCount, pageGroupSize, refetch }: IPag
       >
         {'>'}
       </PaginationButton>
-
       {/* 그룹 뒤로 이동 */}
       <PaginationButton isActive={lastPage - startPage > pageGroupSize} onClick={onClickNextGroup}>
         {'>>'}

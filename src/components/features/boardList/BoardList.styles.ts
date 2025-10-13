@@ -96,7 +96,10 @@ export const Table = styled.table`
   border-bottom: 1px solid black;
   text-align: center;
 `;
-export const Tr = styled.tr``;
+export const Tr = styled.tr`
+  padding-right: 20px;
+  padding-left: 20px;
+`;
 export const Th = styled.th`
   padding: 12px 63px 12px 40px;
 `;
