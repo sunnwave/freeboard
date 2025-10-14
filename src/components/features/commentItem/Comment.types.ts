@@ -12,6 +12,7 @@ export interface IMyUpdateBoardCommentInput {
 export interface ICommentUIProps {
   data?: IBoardComment;
   isUpdate?: boolean;
+  setIsUpdate?: (value: boolean) => void;
   isDeleteModalOpen?: boolean;
   onCancelDeleteModal: () => void;
   onClickUpdateBoardComment: (boardCommentId?: string) => void;

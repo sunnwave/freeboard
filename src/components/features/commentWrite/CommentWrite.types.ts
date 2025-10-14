@@ -2,6 +2,7 @@ import { IBoardComment } from '../../../commons/types/generated/types';
 
 export interface ICommentWriteProps {
   isUpdate?: boolean;
+  setIsUpdate?: (value: boolean) => void;
   data?: IBoardComment;
 }
 

@@ -105,6 +105,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
         },
       });
       alert('댓글이 수정되었습니다.');
+      props.setIsUpdate?.(false);
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);

@@ -18,7 +18,7 @@ export default function CommentUI(props: ICommentUIProps) {
         ></PasswordModal>
       )}
       {props.isUpdate ? (
-        <CommentWrite isUpdate={true} data={props.data} />
+        <CommentWrite isUpdate={true} data={props.data} setIsUpdate={props.setIsUpdate} />
       ) : (
         <>
           <C.CommentWrappper key={props.data?._id}>

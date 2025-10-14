@@ -76,6 +76,7 @@ export default function Comment(props: ICommentProps) {
     <CommentUI
       data={props.data}
       isUpdate={isUpdate}
+      setIsUpdate={setIsUpdate}
       isDeleteModalOpen={isDeleteModalOpen}
       onCancelDeleteModal={onCancelDeleteModal}
       onClickUpdateBoardComment={onClickUpdateBoardComment}
