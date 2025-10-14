@@ -78,14 +78,14 @@ export const CommentCounter = styled.div`
   text-align: left;
 `;
 
-export const CommentRegisterButton = styled.button`
+export const CommentRegisterButton = styled.button<{ isUpdate?: boolean }>`
   width: 91px;
   height: 52px;
   padding: 14px 16px 14px 16px;
   gap: 10px;
   opacity: 0px;
-  background: #000000;
-  color: white;
+  background: ${props => (props.isUpdate ? '#FFD600' : '#000000')};
+  color: ${props => (props.isUpdate ? '#000000' : '#FFFFFF')};
   border: none;
 `;
 

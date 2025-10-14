@@ -16,7 +16,7 @@ export default function CommentList() {
 
   const [hasMore, setHasMore] = useState(true);
 
-  const { data, fetchMore } = useQuery<
+  const { data, fetchMore, refetch } = useQuery<
     Pick<IQuery, 'fetchBoardComments'>,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
@@ -48,5 +48,5 @@ export default function CommentList() {
       },
     });
   };
-  return <CommentListUI data={data} onLoadMore={onLoadMore} hasMore={hasMore} />;
+  return <CommentListUI data={data} refetch={refetch} onLoadMore={onLoadMore} hasMore={hasMore} />;
 }

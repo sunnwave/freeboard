@@ -16,31 +16,42 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
           <W.InfoInput
             type="text"
             placeholder="작성자"
-            onChange={props.onChangeWriter}
-            value={props?.data?.writer ?? props.writer ?? ''}
-            // defaultValue={props?.data?.writer ?? ''}
+            onChange={props.onChangeInput}
+            value={props?.data?.writer ?? props.input.writer ?? ''}
+            id="writer"
             disabled={!!props.data?.writer}
           />
           <W.InfoInput
             type="password"
             placeholder="비밀번호"
-            onChange={props.onChangePassword}
+            onChange={props.onChangeInput}
             //TIL :value를 props로 받아와서 초기값 설정: 작성 후 빈칸으로 초기화
-            value={props.password}
+            value={props.input.password ?? ''}
+            id="password"
           />
-          <Rate onChange={props.onChangeRating} value={props.rating} />
+          <Rate onChange={props.onChangeRating} value={props.input.rating} id="rating" />
         </W.CommentInfoWrapper>
         <W.CommentInputWrapper>
           <W.CommentInput
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-            onChange={props.onChangeContents}
+            onChange={props.onChangeInput}
             // defaultValue={props?.data?.contents ?? ''}
-            value={props.contents ?? ''}
+            value={
+              props.isUpdate
+                ? props.input.contents !== undefined
+                  ? props.input.contents
+                  : (props.data?.contents ?? '')
+                : (props.input.contents ?? '')
+            }
             maxLength={100}
+            id="contents"
           />
           <W.CommentFooterWrapper>
-            <W.CommentCounter>{props.contentsCount}/100</W.CommentCounter>
-            <W.CommentRegisterButton onClick={props.onClickRegister}>
+            <W.CommentCounter>{props.input.contents.length}/100</W.CommentCounter>
+            <W.CommentRegisterButton
+              onClick={props.isUpdate ? props.onClickUpdate : props.onClickRegister}
+              isUpdate={props.isUpdate}
+            >
               {props.isUpdate ? '수정' : '등록'}하기
             </W.CommentRegisterButton>
           </W.CommentFooterWrapper>

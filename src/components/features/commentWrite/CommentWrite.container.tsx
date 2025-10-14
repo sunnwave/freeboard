@@ -1,44 +1,54 @@
 import { useRouter } from 'next/router';
 import CommentWriteUI from './CommentWrite.presenter';
 import { useMutation } from '@apollo/client';
-import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENTS } from './CommentWrite.queries';
-import { ChangeEvent, useState } from 'react';
+import { CREATE_BOARD_COMMENT, UPDATE_BOARD_COMMENT } from './CommentWrite.queries';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { ICommentWriteProps } from './CommentWrite.types';
 
 export default function CommentWrite(props: ICommentWriteProps) {
   const router = useRouter();
 
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
-  const [writer, setWriter] = useState('');
-  const [password, setPassword] = useState('');
-  const [rating, setRating] = useState(0);
-  const [contents, setContents] = useState('');
-  const [contentsCount, setContentsCount] = useState(0);
+  const [input, setInput] = useState({
+    writer: '',
+    password: '',
+    rating: 0,
+    contents: '',
+  });
 
-  function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
-    setWriter(event.target.value);
+  useEffect(() => {
+    if (props.isUpdate && props.data) {
+      setInput({
+        writer: props.data.writer ?? '익명',
+        password: '',
+        rating: props.data.rating ?? 0,
+        contents: props.data.contents ?? '',
+      });
+    }
+  }, [props.data, props.isUpdate]);
+
+  function onChangeInput(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
+    setInput(prev => ({
+      ...prev,
+      [event.target.id]: event.target.value,
+    }));
   }
 
-  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value);
-  }
-
-  function onChangeRating(rate: number) {
-    setRating(rate);
-  }
-
-  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
-    setContents(event.target.value);
-    setContentsCount(event.target.value.length);
+  function onChangeRating(rating: number) {
+    setInput(prev => ({
+      ...prev,
+      rating: rating,
+    }));
   }
 
   const onClickRegister = async () => {
-    if (!contents) {
+    if (!input.contents) {
       alert('댓글을 작성해주세요.');
       return;
     }
-    if (!password) {
+    if (!input) {
       alert('비밀번호를 입력해주세요.');
       return;
     }
@@ -47,23 +57,15 @@ export default function CommentWrite(props: ICommentWriteProps) {
         variables: {
           boardId: router.query.boardId,
           createBoardCommentInput: {
-            writer: writer ? writer : '익명',
-            password,
-            contents,
-            rating,
+            writer: input.writer ?? '익명',
+            password: input.password,
+            contents: input.contents,
+            rating: input.rating,
           },
         },
-        // refetchQueries: [
-        //   {
-        //     query: FETCH_BOARD_COMMENTS,
-        //     variables: {
-        //       page: 1,
-        //       boardId: router.query.boardId as string,
-        //     },
-        //   },
-        // ],
         update(cache, { data }) {
           if (!data) return;
+
           const newComment = data.createBoardComment;
 
           cache.modify({
@@ -82,25 +84,44 @@ export default function CommentWrite(props: ICommentWriteProps) {
         console.error(err);
       }
     }
-    setWriter('');
-    setPassword('');
-    setRating(0);
-    setContents('');
+    setInput({
+      writer: '',
+      password: '',
+      rating: 0,
+      contents: '',
+    });
+  };
+
+  const onClickUpdate = async () => {
+    try {
+      await updateBoardComment({
+        variables: {
+          boardCommentId: props.data?._id,
+          password: input.password,
+          updateBoardCommentInput: {
+            contents: input.contents,
+            rating: input.rating,
+          },
+        },
+      });
+      alert('댓글이 수정되었습니다.');
+    } catch (err) {
+      if (err instanceof Error) {
+        alert(err.message);
+        console.error(err);
+      }
+    }
   };
 
   return (
     <CommentWriteUI
+      data={props.data}
       isUpdate={props.isUpdate}
-      onChangeWriter={onChangeWriter}
-      onChangePassword={onChangePassword}
+      input={input}
+      onChangeInput={onChangeInput}
       onChangeRating={onChangeRating}
-      onChangeContents={onChangeContents}
       onClickRegister={onClickRegister}
-      contentsCount={contentsCount}
-      rating={rating}
-      writer={writer}
-      password={password}
-      contents={contents}
+      onClickUpdate={onClickUpdate}
     />
   );
 }
