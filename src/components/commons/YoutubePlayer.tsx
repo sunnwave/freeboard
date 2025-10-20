@@ -1,4 +1,4 @@
-import YouTube from 'react-youtube';
+import YouTubePlayer from 'react-player/youtube';
 
 export default function YoutubePlayer({ videoId }: { videoId: string | null }) {
   const opts = {
@@ -11,5 +11,5 @@ export default function YoutubePlayer({ videoId }: { videoId: string | null }) {
 
   if (!videoId) return null; // 비디오 ID가 없으면 아무것도 렌더링하지 않음
 
-  return <YouTube videoId={videoId} opts={opts} />;
+  return <YouTubePlayer videoId={videoId} opts={opts} />;
 }

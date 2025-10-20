@@ -1,32 +1,41 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import React from 'react';
 
-// Meta 설정
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
+}
+
+export const Button = ({ label, onClick }: ButtonProps) => (
+  <button
+    style={{
+      padding: '8px 16px',
+      borderRadius: '6px',
+      background: '#1890ff',
+      color: '#fff',
+      border: 'none',
+      cursor: 'pointer',
+    }}
+    onClick={onClick}
+  >
+    {label}
+  </button>
+);
+
 const meta: Meta<typeof Button> = {
-  title: 'Example/Button',
+  title: 'Commons/Button',
   component: Button,
-  argTypes: {
-    onClick: { action: 'clicked' },
+  parameters: {
+    layout: 'centered',
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
-
-// Story 타입 정의
 type Story = StoryObj<typeof Button>;
 
-// Primary 버튼 스토리
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    label: 'Primary Button',
-    primary: true,
-  },
-};
-
-// Secondary 버튼 스토리
-export const Secondary: Story = {
-  args: {
-    label: 'Secondary Button',
-    primary: false,
+    label: 'Click Me',
   },
 };
