@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import BoardRegisterUI from './BoardRegister.presenter';
-import { CREATE_BOARD, UPDATE_BOARD } from './BoardRegister.queries';
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from './BoardRegister.queries';
 import { IBoardRegisterProps, ImyUpdateBoardInput } from './BoardRegister.types';
 import { Address } from 'react-daum-postcode';
+import { IMutation, IMutationUploadFileArgs } from '@/graphql';
+import { checkValidationFile } from '@/commons/libraries/validationFile';
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const [writer, setWriter] = useState('');
@@ -15,6 +17,13 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [images, setImages] = useState<string[]>(['', '', '']);
+
+  const fileRefs = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
@@ -29,6 +38,9 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation<Pick<IMutation, 'uploadFile'>, IMutationUploadFileArgs>(
+    UPLOAD_FILE,
+  );
 
   const router = useRouter();
 
@@ -80,6 +92,26 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     setAddressDetail(event.target.value);
   }
 
+  const onChangeFile = (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; //배열로 들어오는 이유: <input type="file" multiple /> 일 때, 여러개 드래그 가능
+
+    const isValid = checkValidationFile(file);
+    if (!isValid) return;
+
+    const result = await uploadFile({ variables: { file } });
+
+    const newUrl = result.data?.uploadFile.url ?? '';
+    setImages(prev => {
+      const updated = [...prev];
+      updated[index] = newUrl;
+      return updated;
+    });
+  };
+
+  const onClickAddImage = (index: number): void => {
+    fileRefs[index].current?.click();
+  };
+
   function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
     setYoutubeUrl(event.target.value);
   }
@@ -128,6 +160,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
                 addressDetail,
               },
               youtubeUrl,
+              images: images.filter(url => url !== ''),
             },
           },
         });
@@ -169,6 +202,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     if (address) myUpdateBoardInput.boardAddress.address = address;
     if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
     if (youtubeUrl) myUpdateBoardInput.youtube = youtubeUrl;
+    if (images) myUpdateBoardInput.images = images;
 
     try {
       //TIL : router.query.boardId의 타입을 확인 router.query.boardId가 string일 때만 작동될 수 있도록 함
@@ -206,11 +240,14 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         buttonColor={buttonColor}
         zipcode={zipcode}
         address={address}
+        fileRefs={fileRefs}
         isAddressModalOpen={isAddressModalOpen}
         onChangeWriter={onChangeWriter}
         onChangePassword={onChangePassword}
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
+        onChangeFile={onChangeFile}
+        onClickAddImage={onClickAddImage}
         onChangeYoutube={onChangeYoutube}
         handleAddressComplete={handleAddressComplete}
         onChangeAddressDetail={onChangeAddressDetail}
@@ -220,6 +257,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         onToggleAlertModal={onToggleAlertModal}
         alertMessage={alertMessage}
         isAlertModalOpen={isAlertModalOpen}
+        images={images}
       />
     </>
   );

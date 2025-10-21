@@ -23,6 +23,7 @@ import {
   ButtonWrapper,
   RegisterButton,
   Error,
+  Thumbnail,
 } from './BoardRegister.styles';
 import { IBoardRegisterUIProps } from './BoardRegister.types';
 import DaumPostcodeEmbed from 'react-daum-postcode';
@@ -125,9 +126,26 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <ImageWrapper>
           <Label>사진 첨부</Label>
           <UploadButtonWrapper>
-            <UploadButton>+</UploadButton>
-            <UploadButton>+</UploadButton>
-            <UploadButton>+</UploadButton>
+            {(props.images ?? []).map((url, index) => (
+              <div key={index}>
+                {url ? (
+                  <Thumbnail
+                    src={`https://storage.googleapis.com/${url}`}
+                    onClick={() => props.onClickAddImage(index)}
+                  />
+                ) : (
+                  <UploadButton onClick={() => props.onClickAddImage(index)}>+</UploadButton>
+                )}
+
+                <input
+                  style={{ display: 'none' }}
+                  type="file"
+                  onChange={props.onChangeFile(index)} // ✅ 수정됨
+                  ref={props.fileRefs[index]} // ✅ 수정됨
+                  accept="image/jpeg,image/png"
+                />
+              </div>
+            ))}
           </UploadButtonWrapper>
         </ImageWrapper>
         <OptionWrapper>

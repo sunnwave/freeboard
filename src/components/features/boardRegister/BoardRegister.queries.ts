@@ -29,6 +29,7 @@ export const CREATE_BOARD = gql`
       createdAt
       updatedAt
       deletedAt
+      user
       boardAddress {
         zipcode
         address
@@ -50,6 +51,14 @@ export const UPDATE_BOARD = gql`
       dislikeCount
       images
       createdAt
+    }
+  }
+`;
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
     }
   }
 `;

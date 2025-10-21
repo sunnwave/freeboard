@@ -115,6 +115,7 @@ export const SearchButton = styled.button`
   font-weight: 500;
   line-height: 23.68px;
   text-align: left;
+  cursor: pointer;
 `;
 export const Address = styled.input`
   width: 996px;
@@ -157,6 +158,13 @@ export const UploadButton = styled.button`
   border: none;
   cursor: pointer;
   color: #4f4f4f;
+`;
+
+export const Thumbnail = styled.img`
+  width: 78px;
+  height: 78px;
+  margin-right: 24px;
+  cursor: pointer;
 `;
 export const OptionWrapper = styled.div`
   width: 996px;

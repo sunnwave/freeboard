@@ -93,7 +93,7 @@ export const Title = styled.div`
   margin-right: auto;
 `;
 export const Image = styled.img`
-  width: 996px;
+  /* width: 996px; */
   height: 480px;
   margin-bottom: 40px;
 `;

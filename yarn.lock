@@ -3414,7 +3414,7 @@
     recast "^0.23.1"
     ts-dedent "^2.0.0"
 
-"@storybook/csf@^0.1.2":
+"@storybook/csf@^0.1.11", "@storybook/csf@^0.1.2":
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.13.tgz#c8a9bea2ae518a3d9700546748fa30a8b07f7f80"
   integrity sha512-7xOOwCLGB3ebM87eemep89MYRFTko+D8qE7EdAAq74lgdqRR5cOUtYWJLjO2dLtP94nqoOdHJo6MdLLKzg412Q==
@@ -6452,12 +6452,14 @@ eslint-plugin-react@^7.32.1:
     string.prototype.matchall "^4.0.12"
     string.prototype.repeat "^1.0.0"
 
-eslint-plugin-storybook@^9.1.13:
-  version "9.1.13"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-9.1.13.tgz#d738e3d949ef2e692a6f09961f58941832cdbd1b"
-  integrity sha512-kPuhbtGDiJLB5OLZuwFZAxgzWakNDw64sJtXUPN8g0+VAeXfHyZEmsE28qIIETHxtal71lPKVm8QNnERaJHPJQ==
+eslint-plugin-storybook@0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-0.11.2.tgz#a46f8fa2b87d15f66251e832a10d5481fc73a028"
+  integrity sha512-0Z4DUklJrC+GHjCRXa7PYfPzWC15DaVnwaOYenpgXiCEijXPZkLKCms+rHhtoRcWccP7Z8DpOOaP1gc3P9oOwg==
   dependencies:
+    "@storybook/csf" "^0.1.11"
     "@typescript-eslint/utils" "^8.8.1"
+    ts-dedent "^2.2.0"
 
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
   version "5.1.1"
@@ -11296,7 +11298,7 @@ ts-api-utils@^2.1.0:
   resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-2.1.0.tgz#595f7094e46eed364c13fd23e75f9513d29baf91"
   integrity sha512-CUgTZL1irw8u29bzrOD/nH85jqyc74D6SshFgujOIA7osm2Rz7dYH77agkx7H4FBNxDq7Cjf+IjaX/8zwFW+ZQ==
 
-ts-dedent@^2.0.0:
+ts-dedent@^2.0.0, ts-dedent@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ts-dedent/-/ts-dedent-2.2.0.tgz#39e4bd297cd036292ae2394eb3412be63f563bb5"
   integrity sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==
