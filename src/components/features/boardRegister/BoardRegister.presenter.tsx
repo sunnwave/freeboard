@@ -41,6 +41,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           open={props.isAddressModalOpen}
           onOk={props.onToggleAddressModal}
           onCancel={props.onToggleAddressModal}
+          destroyOnHidden
         >
           <DaumPostcodeEmbed onComplete={props.handleAddressComplete}></DaumPostcodeEmbed>
         </Modal>

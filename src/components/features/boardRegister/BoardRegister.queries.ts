@@ -29,7 +29,7 @@ export const CREATE_BOARD = gql`
       createdAt
       updatedAt
       deletedAt
-      user
+      # user
       boardAddress {
         zipcode
         address

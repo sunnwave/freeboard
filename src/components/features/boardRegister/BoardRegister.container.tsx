@@ -160,7 +160,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
                 addressDetail,
               },
               youtubeUrl,
-              images: images.filter(url => url !== ''),
+              images,
             },
           },
         });
