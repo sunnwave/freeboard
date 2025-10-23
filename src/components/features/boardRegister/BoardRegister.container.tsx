@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import BoardRegisterUI from './BoardRegister.presenter';
-import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from './BoardRegister.queries';
+import { CREATE_BOARD, UPDATE_BOARD } from './BoardRegister.queries';
 import { IBoardRegisterProps, ImyUpdateBoardInput } from './BoardRegister.types';
 import { Address } from 'react-daum-postcode';
-import { IMutation, IMutationUploadFileArgs } from '@/graphql';
-import { checkValidationFile } from '@/commons/libraries/validationFile';
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const [writer, setWriter] = useState('');
@@ -17,19 +15,13 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>(['', '', '']);
 
   useEffect(() => {
     if (props.data?.fetchBoard?.images) {
       setImages([...props.data.fetchBoard.images]);
     }
   }, [props.data?.fetchBoard.images]);
-
-  const fileRefs = [
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-  ];
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
@@ -44,9 +36,6 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
-  const [uploadFile] = useMutation<Pick<IMutation, 'uploadFile'>, IMutationUploadFileArgs>(
-    UPLOAD_FILE,
-  );
 
   const router = useRouter();
 
@@ -98,26 +87,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     setAddressDetail(event.target.value);
   }
 
-  const onChangeFile = (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; //배열로 들어오는 이유: <input type="file" multiple /> 일 때, 여러개 드래그 가능
-
-    const isValid = checkValidationFile(file);
-    if (!isValid) return;
-
-    const result = await uploadFile({ variables: { file } });
-
-    const newUrl = result.data?.uploadFile.url ?? '';
-    setImages(prev => {
-      const updated = [...prev];
-      updated[index] = newUrl;
-      return updated;
-    });
-
-    console.log(images);
-  };
-
-  const onClickAddImage = (index: number): void => {
-    fileRefs[index].current?.click();
+  const onChangeFiles = (url: string, index: number): void => {
+    const newUrls = [...images];
+    newUrls[index] = url;
+    setImages(newUrls);
   };
 
   function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
@@ -188,7 +161,9 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   };
 
   const onClickUpdate = async () => {
-    const myUpdateBoardInput: ImyUpdateBoardInput = {};
+    const currentImages = JSON.stringify(images);
+    const defaultImages = JSON.stringify(props.data?.fetchBoard.images);
+    const isImagesChanged = currentImages !== defaultImages;
 
     if (
       !title &&
@@ -197,7 +172,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       !address &&
       !addressDetail &&
       !youtubeUrl &&
-      images.filter(Boolean).length === 0
+      !isImagesChanged
     ) {
       alert('수정된 내용이 없습니다.');
       return;
@@ -207,6 +182,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       alert('비밀번호를 입력하지 않았습니다. 비밀번호를 입력해주세요');
       return;
     }
+    const myUpdateBoardInput: ImyUpdateBoardInput = {};
 
     if (title) myUpdateBoardInput.title = title;
     if (contents) myUpdateBoardInput.contents = contents;
@@ -258,14 +234,12 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         buttonColor={buttonColor}
         zipcode={zipcode}
         address={address}
-        fileRefs={fileRefs}
         isAddressModalOpen={isAddressModalOpen}
         onChangeWriter={onChangeWriter}
         onChangePassword={onChangePassword}
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
-        onChangeFile={onChangeFile}
-        onClickAddImage={onClickAddImage}
+        onChangeFiles={onChangeFiles}
         onChangeYoutube={onChangeYoutube}
         handleAddressComplete={handleAddressComplete}
         onChangeAddressDetail={onChangeAddressDetail}

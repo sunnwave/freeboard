@@ -63,9 +63,11 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
         )}
         <ContentsWrapper>
           <Title>{props.data?.fetchBoard?.title}</Title>
-          {props.data?.fetchBoard.images?.map(
-            img => img !== '' && <Image src={`https://storage.googleapis.com/${img}`} />,
-          )}
+          {props.data?.fetchBoard.images
+            ?.filter(img => img)
+            .map(img => (
+              <Image src={`https://storage.googleapis.com/${img}`} />
+            ))}
           <DetailContents>{props.data?.fetchBoard?.contents}</DetailContents>
           <Youtube>
             {props.data?.fetchBoard?.youtubeUrl !== '' && (

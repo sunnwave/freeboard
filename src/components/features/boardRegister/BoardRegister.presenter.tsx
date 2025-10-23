@@ -15,7 +15,6 @@ import {
   Youtube,
   ImageWrapper,
   UploadButtonWrapper,
-  UploadButton,
   OptionWrapper,
   RadioWrapper,
   RadioButton,
@@ -23,13 +22,14 @@ import {
   ButtonWrapper,
   RegisterButton,
   Error,
-  Thumbnail,
 } from './BoardRegister.styles';
 import { IBoardRegisterUIProps } from './BoardRegister.types';
 import DaumPostcodeEmbed from 'react-daum-postcode';
+import { v4 as uuidv4 } from 'uuid';
 
 import AlertModal from '../../commons/AlertModal/AlertModal';
 import { Modal } from 'antd';
+import FileUpload from '@/components/commons/FileUpload/FileUpload';
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
@@ -127,28 +127,13 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <ImageWrapper>
           <Label>사진 첨부</Label>
           <UploadButtonWrapper>
-            {(props.images && props.images.some(url => url !== '')
-              ? props.images
-              : (props.data?.fetchBoard.images ?? ['', '', ''])
-            ).map((url, index) => (
-              <div key={index}>
-                {url ? (
-                  <Thumbnail
-                    src={`https://storage.googleapis.com/${url}`}
-                    onClick={() => props.onClickAddImage(index)}
-                  />
-                ) : (
-                  <UploadButton onClick={() => props.onClickAddImage(index)}>+</UploadButton>
-                )}
-
-                <input
-                  style={{ display: 'none' }}
-                  type="file"
-                  onChange={props.onChangeFile(index)}
-                  ref={props.fileRefs[index]}
-                  accept="image/jpeg,image/png"
-                />
-              </div>
+            {props.images.map((url, index) => (
+              <FileUpload
+                key={uuidv4()}
+                index={index}
+                fileUrl={url}
+                onChangeFiles={props.onChangeFiles}
+              />
             ))}
           </UploadButtonWrapper>
         </ImageWrapper>

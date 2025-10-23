@@ -31,8 +31,7 @@ export interface IBoardRegisterUIProps {
   onToggleAlertModal: () => void;
   handleAddressComplete: (data: Address) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeFile: (index: number) => (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickAddImage: (index: number) => void;
+  onChangeFiles: (url: string, index: number) => void;
   onClickRegister: () => Promise<void>;
   onClickUpdate: () => Promise<void>;
   buttonColor?: string;
@@ -41,6 +40,5 @@ export interface IBoardRegisterUIProps {
   isAddressModalOpen?: boolean;
   alertMessage?: string;
   isAlertModalOpen: boolean;
-  fileRefs: React.RefObject<HTMLInputElement>[];
   images: string[];
 }
