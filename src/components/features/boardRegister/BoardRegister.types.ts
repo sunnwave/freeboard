@@ -11,7 +11,7 @@ export interface ImyUpdateBoardInput {
   title?: string;
   contents?: string;
   boardAddress?: IBoardAddressInput;
-  youtube?: string;
+  youtubeUrl?: string;
   images?: string[];
 }
 

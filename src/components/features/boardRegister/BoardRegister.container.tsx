@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import BoardRegisterUI from './BoardRegister.presenter';
 import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from './BoardRegister.queries';
@@ -17,7 +17,13 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
-  const [images, setImages] = useState<string[]>(['', '', '']);
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (props.data?.fetchBoard?.images) {
+      setImages([...props.data.fetchBoard.images]);
+    }
+  }, [props.data?.fetchBoard.images]);
 
   const fileRefs = [
     useRef<HTMLInputElement>(null),
@@ -106,6 +112,8 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       updated[index] = newUrl;
       return updated;
     });
+
+    console.log(images);
   };
 
   const onClickAddImage = (index: number): void => {
@@ -182,7 +190,15 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const onClickUpdate = async () => {
     const myUpdateBoardInput: ImyUpdateBoardInput = {};
 
-    if (!title && !contents && !zipcode && !address && !addressDetail && !youtubeUrl) {
+    if (
+      !title &&
+      !contents &&
+      !zipcode &&
+      !address &&
+      !addressDetail &&
+      !youtubeUrl &&
+      images.filter(Boolean).length === 0
+    ) {
       alert('수정된 내용이 없습니다.');
       return;
     }
@@ -195,13 +211,15 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     if (title) myUpdateBoardInput.title = title;
     if (contents) myUpdateBoardInput.contents = contents;
 
-    if (!myUpdateBoardInput.boardAddress) {
+    if (zipcode || address || addressDetail) {
       myUpdateBoardInput.boardAddress = {};
+      if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
+      if (address) myUpdateBoardInput.boardAddress.address = address;
+      if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
     }
-    if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
-    if (address) myUpdateBoardInput.boardAddress.address = address;
-    if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
-    if (youtubeUrl) myUpdateBoardInput.youtube = youtubeUrl;
+
+    if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
+
     if (images) myUpdateBoardInput.images = images;
 
     try {

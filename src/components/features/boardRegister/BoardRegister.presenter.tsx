@@ -127,7 +127,10 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <ImageWrapper>
           <Label>사진 첨부</Label>
           <UploadButtonWrapper>
-            {(props.images ?? []).map((url, index) => (
+            {(props.images && props.images.some(url => url !== '')
+              ? props.images
+              : (props.data?.fetchBoard.images ?? ['', '', ''])
+            ).map((url, index) => (
               <div key={index}>
                 {url ? (
                   <Thumbnail
@@ -141,8 +144,8 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
                 <input
                   style={{ display: 'none' }}
                   type="file"
-                  onChange={props.onChangeFile(index)} // ✅ 수정됨
-                  ref={props.fileRefs[index]} // ✅ 수정됨
+                  onChange={props.onChangeFile(index)}
+                  ref={props.fileRefs[index]}
                   accept="image/jpeg,image/png"
                 />
               </div>
