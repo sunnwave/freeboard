@@ -1,16 +1,16 @@
 import {
   Body,
-  DateInput,
-  SearchIcon,
-  SearchButton,
-  SearchDateWrapper,
-  SearchTitle,
-  SearchWrapper,
+  // DateInput,
+  // SearchIcon,
+  // SearchButton,
+  // SearchDateWrapper,
+  // SearchTitle,
+  // SearchWrapper,
   Table,
   Td,
   Th,
   Tr,
-  SearchTitleWrapper,
+  // SearchTitleWrapper,
   RegisterButton,
   RegisterIcon,
   RegisterLabel,
@@ -18,24 +18,14 @@ import {
 } from './BoardList.styles';
 import moment from 'moment';
 import { IBoardListUIProps } from './BoardList.types';
+import Search from '@/components/commons/Search/Search';
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (
     <>
       <Body>
         <Wrapper>
-          <SearchWrapper>
-            <SearchTitleWrapper>
-              <SearchIcon src={'/boardsList/ic_search.png'} />
-              <SearchTitle placeholder="제목을 검색해주세요" />
-            </SearchTitleWrapper>
-            <SearchDateWrapper>
-              <DateInput placeholder="YYYY.MM.DD" id="fromDate" />
-              ~
-              <DateInput placeholder="YYYY.MM.DD" id="toDate" />
-            </SearchDateWrapper>
-            <SearchButton>검색하기</SearchButton>
-          </SearchWrapper>
+          <Search refetch={props.refetch} />
           <Table>
             <tbody>
               <Tr>

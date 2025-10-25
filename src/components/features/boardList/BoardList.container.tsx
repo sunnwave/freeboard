@@ -32,6 +32,7 @@ export default function BoardList() {
         onClickBoardToDetail={onClickBoardToDetail}
         onClickRegister={onClickRegister}
         data={data}
+        refetch={refetch}
       />
       <Pagination
         boardsCount={dataBoardsCount?.fetchBoardsCount ?? 10}
