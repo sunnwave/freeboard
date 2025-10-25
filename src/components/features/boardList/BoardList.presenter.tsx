@@ -25,7 +25,11 @@ export default function BoardListUI(props: IBoardListUIProps) {
     <>
       <Body>
         <Wrapper>
-          <Search refetch={props.refetch} />
+          <Search
+            searchParams={props.searchParams}
+            setSearchParams={props.setSearchParams}
+            refetch={props.refetch}
+          />
           <Table>
             <tbody>
               <Tr>

@@ -8,8 +8,10 @@ import {
   SearchKeywordWrapper,
   SearchWrapper,
 } from './Search.styles';
+import { IQueryFetchBoardsArgs } from '@/graphql';
 
 interface ISearchUIProps {
+  searchParams: IQueryFetchBoardsArgs;
   onChangeKeyword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeDate: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSearch: () => void;
@@ -21,7 +23,11 @@ export default function SearchUI(props: ISearchUIProps) {
       <SearchWrapper>
         <SearchKeywordWrapper>
           <SearchIcon src={'/boardsList/ic_search.png'} />
-          <KeywordInput placeholder="제목을 검색해주세요" onChange={props.onChangeKeyword} />
+          <KeywordInput
+            placeholder="제목을 검색해주세요"
+            value={props.searchParams.search ?? ''}
+            onChange={props.onChangeKeyword}
+          />
         </SearchKeywordWrapper>
         <SearchDateWrapper>
           <DateInput

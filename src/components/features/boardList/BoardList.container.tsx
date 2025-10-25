@@ -2,11 +2,17 @@ import { useQuery } from '@apollo/client';
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from './BoardList.queries';
 import { useRouter } from 'next/router';
 import { IQuery, IQueryFetchBoardsArgs } from '../../../commons/types/generated/types';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import BoardListUI from './BoardList.presenter';
 import Pagination from '../../commons/Pagination/Pagination';
 
 export default function BoardList() {
+  const [searchParams, setSearchParams] = useState<IQueryFetchBoardsArgs>({
+    search: '',
+    startDate: '',
+    endDate: '',
+  });
+
   const { data, refetch } = useQuery<Pick<IQuery, 'fetchBoards'>, IQueryFetchBoardsArgs>(
     FETCH_BOARDS,
   );
@@ -32,6 +38,8 @@ export default function BoardList() {
         onClickBoardToDetail={onClickBoardToDetail}
         onClickRegister={onClickRegister}
         data={data}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
         refetch={refetch}
       />
       <Pagination
