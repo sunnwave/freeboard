@@ -19,6 +19,7 @@ import {
 import moment from 'moment';
 import { IBoardListUIProps } from './BoardList.types';
 import Search from '@/components/commons/Search/Search';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (
@@ -42,7 +43,22 @@ export default function BoardListUI(props: IBoardListUIProps) {
                 <Tr key={el._id}>
                   <Td>{index + 1}</Td>
                   <Td className="title" onClick={props.onClickBoardToDetail} id={el._id}>
-                    {el.title}
+                    {el.title
+                      .replaceAll(
+                        props.searchParams.search ?? '',
+                        `!@#${props.searchParams.search ?? ''}!@#`,
+                      )
+                      .split('!@#')
+                      .map(el => (
+                        <span
+                          id={uuidv4()}
+                          style={{
+                            background: el === props.searchParams.search ? 'yellow' : 'white',
+                          }}
+                        >
+                          {el}
+                        </span>
+                      ))}
                   </Td>
                   <Td>{el.writer}</Td>
                   <Td>{moment(el.createdAt).format('YYYY.MM.DD')}</Td>
