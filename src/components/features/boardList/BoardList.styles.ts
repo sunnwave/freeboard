@@ -112,23 +112,36 @@ export const Td = styled.td`
 `;
 
 export const RegisterButton = styled.button`
-  width: 171px;
-  height: 52px;
-  padding: 14px 16px 14px 16px;
-  gap: 8px;
-  border-radius: 10px;
-  border: 1px solid #f2f2f2;
-  background: #ffffff;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  width: 171px;
+  height: 52px;
+  top: 1831px;
+  left: 1389px;
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 14px 16px;
+  text-align: center;
+  font-family: Noto Sans CJK KR;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
   margin-left: auto;
+
+  opacity: 1;
+  line-height: 1;
+  background: #ffffff;
+  border: 1px solid #f2f2f2;
   cursor: pointer;
   :hover {
     background-color: #f5f2fc;
   }
 `;
 export const RegisterIcon = styled.img`
-  margin-right: 8px;
+  /* margin-right: 8px; */
 `;
 export const RegisterLabel = styled.label``;

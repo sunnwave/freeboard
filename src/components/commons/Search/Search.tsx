@@ -13,28 +13,22 @@ interface ISearchProps {
 }
 
 export default function Search({ searchParams, setSearchParams, refetch }: ISearchProps) {
-  // const [searchParams, setSearchParams] = useState({
-  //   keyword: '',
-  //   startDate: '',
-  //   endDate: '',
-  // });
-
-  // const getDebounce = _.debounce(() => {
-  //   // setSearchParams(prev => ({ ...prev, search: value }));
-  //   void refetch({
-  //     search: searchParams.search,
-  //     startDate: searchParams.startDate
-  //       ? new Date(searchParams.startDate).toISOString()
-  //       : undefined,
-  //     endDate: searchParams.endDate ? new Date(searchParams.endDate).toISOString() : undefined,
-  //     page: 1,
-  //   });
-  // }, 500);
+  const getDebounce = _.debounce((value: string) => {
+    void refetch({
+      search: searchParams.search,
+      startDate: searchParams.startDate
+        ? new Date(searchParams.startDate).toISOString()
+        : undefined,
+      endDate: searchParams.endDate ? new Date(searchParams.endDate).toISOString() : undefined,
+      page: 1,
+    });
+    setSearchParams(prev => ({ ...prev, search: value }));
+  }, 500);
 
   const onChangeKeyword = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
-    setSearchParams(prev => ({ ...prev, search: value }));
-    // getDebounce();
+    // setSearchParams(prev => ({ ...prev, search: value }));
+    getDebounce(value);
   };
 
   const onChangeDate = (event: ChangeEvent<HTMLInputElement>) => {

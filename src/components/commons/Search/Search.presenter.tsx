@@ -23,11 +23,7 @@ export default function SearchUI(props: ISearchUIProps) {
       <SearchWrapper>
         <SearchKeywordWrapper>
           <SearchIcon src={'/boardsList/ic_search.png'} />
-          <KeywordInput
-            placeholder="제목을 검색해주세요"
-            value={props.searchParams.search ?? ''}
-            onChange={props.onChangeKeyword}
-          />
+          <KeywordInput placeholder="제목을 검색해주세요" onChange={props.onChangeKeyword} />
         </SearchKeywordWrapper>
         <SearchDateWrapper>
           <DateInput

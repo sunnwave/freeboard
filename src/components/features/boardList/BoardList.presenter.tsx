@@ -1,21 +1,4 @@
-import {
-  Body,
-  // DateInput,
-  // SearchIcon,
-  // SearchButton,
-  // SearchDateWrapper,
-  // SearchTitle,
-  // SearchWrapper,
-  Table,
-  Td,
-  Th,
-  Tr,
-  // SearchTitleWrapper,
-  RegisterButton,
-  RegisterIcon,
-  RegisterLabel,
-  Wrapper,
-} from './BoardList.styles';
+import { Body, Table, Td, Th, Tr, RegisterButton, RegisterIcon, Wrapper } from './BoardList.styles';
 import moment from 'moment';
 import { IBoardListUIProps } from './BoardList.types';
 import Search from '@/components/commons/Search/Search';
@@ -53,7 +36,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
                         <span
                           id={uuidv4()}
                           style={{
-                            background: el === props.searchParams.search ? 'yellow' : 'white',
+                            background: el === props.searchParams.search ? '#FFD600' : 'white',
                           }}
                         >
                           {el}
@@ -66,9 +49,9 @@ export default function BoardListUI(props: IBoardListUIProps) {
               ))}
             </tbody>
           </Table>
-          <RegisterButton>
+          <RegisterButton onClick={props.onClickRegister}>
             <RegisterIcon src={'/boardsList/ic_register.png'} />
-            <RegisterLabel onClick={props.onClickRegister}>게시물 등록하기</RegisterLabel>
+            게시물 등록하기
           </RegisterButton>
         </Wrapper>
       </Body>
